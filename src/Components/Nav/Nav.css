@@ -1,0 +1,32 @@
+
+.NavBack {
+    display: flex;
+    background: black;
+    height: 80px;
+    width: 100vw;
+    align-content: center;
+    align-items: center;
+}
+
+.NavBar {
+    background:black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    align-content: center;
+}
+
+.NavLink {
+    text-decoration: none;
+    color: rgb(231, 123, 0) ;
+    align-self: stretch;
+    order: 0;
+    flex: 0 0 0px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 90px;
+    list-style-type: none;
+
+}
