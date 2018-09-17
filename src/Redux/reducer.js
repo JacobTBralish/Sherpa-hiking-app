@@ -11,7 +11,9 @@ const initialState = {
         DOB:'',
     },
     chosenState:'',
-    statesList: []
+    chosenCity: '',
+    statesList: [],
+    citiesList: []
     
 }
 
@@ -19,7 +21,9 @@ const LOGGED_IN = 'LOGGED_IN';
 const REGISTER = 'REGISTER';
 const LOGGED_OUT = 'LOGGED_OUT';
 const CHOSEN_STATE = 'CHOSEN_STATE';
+const CHOSEN_CITY = 'CHOSEN_CITY';
 const GET_STATES = 'GET_STATES';
+const GET_CITIES = 'GET_CITIES';
 
 export default function reducer (state = initialState, action){
     // console.log(action.payload)
@@ -30,8 +34,12 @@ export default function reducer (state = initialState, action){
             return {...state, user: null}
         case CHOSEN_STATE:
             return {...state, chosenState: action.payload}
+        case CHOSEN_CITY:
+            return {...state, chosenCity: action.payload}
         case GET_STATES:
             return {...state, statesList: action.payload}
+        case GET_CITIES:
+            return {...state, citiesList: action.payload}
 
     
     //  case LOGGED_IN:
@@ -45,6 +53,32 @@ export function getStates(stateList){console.log(stateList)
     return {
         type: GET_STATES,
         payload: stateList
+    }
+}
+export function getCities(citiesList){
+    // console.log(citiesList)
+return {
+        type: GET_CITIES,
+        payload: citiesList
+    }
+}
+
+
+export function chooseState(item) {
+    console.log(item);
+    
+    return {
+        type: CHOSEN_STATE,
+        payload: item
+    }
+}
+
+export function chooseCity(item) {
+    console.log(item);
+    
+    return {
+        type: CHOSEN_CITY,
+        payload: item
     }
 }
 
@@ -72,12 +106,11 @@ export function register(obj, history){
         })
     }
 }
-
-export function chooseState(item) {
-    console.log(item);
+// export function chooseState(item) {
+//     console.log(item);
     
-    return {
-        type: CHOSEN_STATE,
-        payload: item
-    }
-}
+//     return {
+//         type: CHOSEN_STATE,
+//         payload: item
+//     }
+// }

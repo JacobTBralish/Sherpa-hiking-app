@@ -3,7 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const massive = require('massive');
-const sL = require('../src/Hardcode/listofstates');
 // const axios = require('axios');
 
 const app = express();

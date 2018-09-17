@@ -15,7 +15,7 @@ class SelectState extends Component {
     }
     componentDidMount() {
         axios.get('https://raw.githubusercontent.com/JacobTBralish/list-of-states/master/states.json').then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             this.props.getStates(res.data)
         })
     }
@@ -25,9 +25,9 @@ class SelectState extends Component {
     render() { 
 
         let { statesList, chooseState } = this.props;
-        console.log(statesList);
-        let mappedStates = statesList ? statesList.map((state, i) => {
-            return <Link key={i} to={`/${state.name}`}><button  
+        // console.log(statesList);
+        let mappedStates = statesList ? statesList.map((state, index) => {
+            return <Link key={index} to={`/selectcity`}><button  
             onClick={(e) => chooseState(e.target.value)}
               
              value={state.name}>{state.name}
