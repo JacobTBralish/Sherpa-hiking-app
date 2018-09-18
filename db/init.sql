@@ -3,11 +3,11 @@ CREATE TABLE sherpa_users (
     id SERIAL PRIMARY KEY NOT NULL
     ,username VARCHAR(30) NOT NULL UNIQUE
     ,password TEXT NOT NULL
-    ,profilePic TEXT
-    ,first_name VARCHAR(18) NOT NULL
-    ,last_name VARCHAR(25) NOT NULL
-    ,experience VARCHAR(10)
     ,email VARCHAR(45) NOT NULL UNIQUE
+    ,profilePic TEXT
+    ,first_name VARCHAR(18) 
+    ,last_name VARCHAR(25) 
+    ,experience VARCHAR(10)
     ,DOB DATE
 );
 

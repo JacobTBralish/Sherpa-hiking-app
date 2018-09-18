@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-function City(props){
-    return(
-        <div>
-            {/* <img></img> */}
-            <div>{props.cities}</div>
-        </div>
-    )
+export default class City extends Component{
+
+    render(){
+        console.log(this.props.location.state.latitude)
+        return(
+            <div>
+                {/* <img></img> */}
+                <div>{this.props.location.state.latitude}</div>
+                <div>{this.props.location.state.longitude}</div>
+            </div>
+        )
+    }
 }
-export default City;

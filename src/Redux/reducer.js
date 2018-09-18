@@ -1,19 +1,20 @@
 import axios from 'axios';
 
 const initialState = {
-    user: {
-        username: '',
-        password:'',
-        firstName:'',
-        lastName:'',
-        profilePic:'',
-        email:'',
-        DOB:'',
-    },
+    // user: {
+    //     username: '',
+    //     password:'',
+    //     firstName:'',
+    //     lastName:'',
+    //     profilePic:'',
+    //     email:'',
+    //     DOB:'',
+    // },
     chosenState:'',
     chosenCity: '',
     statesList: [],
-    citiesList: []
+    citiesList: [],
+    trailsList: []
     
 }
 
@@ -24,6 +25,7 @@ const CHOSEN_STATE = 'CHOSEN_STATE';
 const CHOSEN_CITY = 'CHOSEN_CITY';
 const GET_STATES = 'GET_STATES';
 const GET_CITIES = 'GET_CITIES';
+const GET_TRAILS = 'GET_TRAILS';
 
 export default function reducer (state = initialState, action){
     // console.log(action.payload)
@@ -40,6 +42,8 @@ export default function reducer (state = initialState, action){
             return {...state, statesList: action.payload}
         case GET_CITIES:
             return {...state, citiesList: action.payload}
+        case GET_TRAILS:
+            return {...state, trailsList: action.payload}
 
     
     //  case LOGGED_IN:
@@ -60,6 +64,14 @@ export function getCities(citiesList){
 return {
         type: GET_CITIES,
         payload: citiesList
+    }
+}
+
+export function getTrails(trailsList){
+    console.log(trailsList)
+return {
+        type: GET_TRAILS,
+        payload: trailsList
     }
 }
 

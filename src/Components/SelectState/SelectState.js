@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { chooseState, getStates } from '../../Redux/reducer'
 import State from '../SelectState/State'
 import { Link } from 'react-router-dom'
+import './SelectState.css';
 
 class SelectState extends Component {
     constructor(props) {
@@ -37,9 +38,10 @@ class SelectState extends Component {
              </button></Link>
         })  : 'loading'
 
+
         return ( 
-            <div>
-                <div>
+            <div className='main'>
+                <div className='stateContainer'>
                 {mappedStates}
                 </div>
             </div>

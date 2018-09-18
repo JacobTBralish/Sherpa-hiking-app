@@ -20,22 +20,45 @@ class SelectCity extends Component {
             this.props.getCities(res.data)
         })
     }
+
+
+    filterAndFindCities = (stateArray, chosenState) => {
+        let mappedCities; 
+        for(let key in stateArray){
+            if(key === chosenState){
+                mappedCities = stateArray[key][0]
+            }
+        }
+        if(mappedCities){
+            return Object.keys(mappedCities).map((cityName, index) => {
+                console.log(cityName)
+                return {name: cityName, coordinates: {latitude: mappedCities[cityName].latitude, longitude: mappedCities[cityName].longitude}}
+            })
+        }
+    }
+
+
     render() { 
 
         let { citiesList, chooseCity, chosenState } = this.props;
-        console.log(citiesList)
-        let mappedCities = citiesList.map((city, index) => {
-            if (city[0] === chosenState){
-            return <Link key={index} to={`/selecttrail`}><button onClick={(e) => chooseCity(e.target.value)}><div >push<City {...citiesList} /></div></button></Link>
-        }})
-        // console.log(citiesList)
+        
+        let mappedCities = this.filterAndFindCities(citiesList[0], chosenState) ? this.filterAndFindCities(citiesList[0], chosenState).map((city, index) => {
+            return <Link key={index} 
+            to={{ 
+            pathname: '/trails', 
+            state: { longitude:  city.coordinates.longitude, latitude: city.coordinates.latitude} 
+          }}>{city.name}</Link>
+        }) : 'loading...';
+        
+      
+       console.log(mappedCities)
 
         return ( 
             <div>
                 <div>
                     {mappedCities}
                 </div>
-                SelectCity
+                
             </div>
          );
     }
@@ -44,7 +67,7 @@ class SelectCity extends Component {
 const mapStateToProps = state => {
     return{
         citiesList: state.citiesList,
-        chosenState: state.chooseState
+        chosenState: state.chosenState
     }
     
 }

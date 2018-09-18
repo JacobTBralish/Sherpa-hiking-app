@@ -12,24 +12,13 @@ class Login extends Component {
         }
     }
 
-    handleChange = ( key, val ) => {
-        this.setState({
-            [key]: val
-        })
-    }
+    // handleChange = ( key, val ) => {
+    //     this.setState({
+    //         [key]: val
+    //     })
+    // }
 
-    register = () => {
-        const username = this.refs.username.value;
-        const password = this.refs.password.value;
-        axios.post('/register' , {
-          username,
-          password
-        }).then(response => {
-          this.setState({user: response.data})
-        }).catch(error => {
-          this.setState({ message: 'Sorry! There was an error.', error });
-        });
-      }
+
 
       login = () => {
         const username = this.refs.username.value;
@@ -46,16 +35,20 @@ class Login extends Component {
 
 
 
-      logout =() => {
-          
-      }
+      logout = () => {
+        axios.post('/logout').then(response => {
+          this.setState({ user: null });
+        }).catch(error => {
+          this.setState({ message:'Sorry! There was an error.', error });
+        });
+      };
 
 
 
 
 
     render() { 
-        let { user } = this.state;
+        // let { user } = this.state;
         return ( 
         <div>
 
@@ -63,12 +56,12 @@ class Login extends Component {
 
             <form>
                 <label>Username:</label>
-                <input type='text' name='username' ref='username' onChange={e => this.handleChange(e.target.value)}></input>
+                <input type='text' ref='username' /* onChange={e => this.handleChange(e.target.value)} */></input>
                 <label>Password:</label>
-                <input type='password' name='password' ref='password' onChange={e => this.handleChange(e.target.value)}></input>
+                <input type='password' ref='password' /* onChange={e => this.handleChange(e.target.value)} */></input>
 
-                <Link to='/'><button onClick={this.login}>Login</button></Link>
-                <Link to='/'><button  onClick={this.register}>Register</button></Link>
+                <button onClick={this.login}>Login</button>
+                <Link to='/register'><button>Sign up!</button></Link>
             </form>
         </div>
          );
