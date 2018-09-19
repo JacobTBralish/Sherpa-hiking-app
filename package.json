@@ -4,6 +4,7 @@
   "main": "Server/index.js",
   "private": true,
   "dependencies": {
+    "auth0-js": "^9.7.3",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",

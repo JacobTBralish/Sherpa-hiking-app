@@ -26,5 +26,5 @@ componentDidMount() {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ('AIzaSyAhBiMZ58GJ0s7lByIQVZpEsaetOT_Rf9o')
+    // apiKey: ('AIzaSyAhBiMZ58GJ0s7lByIQVZpEsaetOT_Rf9o')
   })(GoogleMapsContainer)

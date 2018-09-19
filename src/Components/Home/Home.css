@@ -1,0 +1,11 @@
+.homeContainer {
+    display: flex;
+    width: 95vw;
+    height: 100vh;
+}
+
+.mainImg {
+    width: 100vw;
+    height: 200px;
+    /* background-image: url('../../photos/mountain1.jpeg') */
+}

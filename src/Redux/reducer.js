@@ -10,11 +10,14 @@ const initialState = {
     //     email:'',
     //     DOB:'',
     // },
+    user: null,
     chosenState:'',
     chosenCity: '',
     statesList: [],
     citiesList: [],
-    trailsList: []
+    trailsList: [],
+    latitude: '',
+    longitude: ''
     
 }
 
@@ -38,9 +41,9 @@ export default function reducer (state = initialState, action){
             return {...state, chosenState: action.payload}
         case CHOSEN_CITY:
             return {...state, chosenCity: action.payload}
-        case GET_STATES:
+        case GET_STATES + `_FULFILLED`:
             return {...state, statesList: action.payload}
-        case GET_CITIES:
+        case GET_CITIES + `_FULFILLED`:
             return {...state, citiesList: action.payload}
         case GET_TRAILS:
             return {...state, trailsList: action.payload}
@@ -53,17 +56,25 @@ export default function reducer (state = initialState, action){
     }
 }
 
-export function getStates(stateList){console.log(stateList)
+export function getStates(){
+   
     return {
+        
         type: GET_STATES,
-        payload: stateList
+        payload:  axios.get('https://raw.githubusercontent.com/JacobTBralish/list-of-states/master/states.json').then(res => {
+        console.log(res.data)
+        return res.data 
+     })
     }
 }
+
 export function getCities(citiesList){
     // console.log(citiesList)
 return {
         type: GET_CITIES,
-        payload: citiesList
+        payload:         axios.get('https://raw.githubusercontent.com/JacobTBralish/list-of-states/master/majorcities.json').then(res => {
+            return res.data
+        })
     }
 }
 
@@ -94,13 +105,10 @@ export function chooseCity(item) {
     }
 }
 
-export function logIn(obj, history){
+export function logIn(user){
     return {
         type: LOGGED_IN,
-        payload: axios.post('/login', obj).then(response => {
-            history.push('/');
-            return response.data
-        })
+        payload: user
     }
 }
 

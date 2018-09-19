@@ -5,9 +5,9 @@ class Trail extends Component {
 
     render() { 
         return ( 
-            <div>Trail
+            <div>
                 <p></p>
-                <p></p>
+                {/* <p>{Trail.location}</p> */}
                 <p></p>
                 <p></p>
             </div>

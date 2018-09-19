@@ -1,2 +1,2 @@
 SELECT * FROM sherpa_users
-WHERE username = $1;
+WHERE auth0_id = $1;

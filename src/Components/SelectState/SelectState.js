@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { chooseState, getStates } from '../../Redux/reducer'
-import State from '../SelectState/State'
 import { Link } from 'react-router-dom'
 import './SelectState.css';
 
 class SelectState extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            statesList: []
 
-        }
-    }
+
     componentDidMount() {
-        axios.get('https://raw.githubusercontent.com/JacobTBralish/list-of-states/master/states.json').then(res => {
-            // console.log(res.data)
-            this.props.getStates(res.data)
-        })
+        this.props.getStates();
     }
 
 
@@ -28,21 +18,23 @@ class SelectState extends Component {
         let { statesList, chooseState } = this.props;
         // console.log(statesList);
         let mappedStates = statesList ? statesList.map((state, index) => {
-            return <Link key={index} to={`/selectcity`}><button  
+        return <div key={index} >{<img className='stateImage' alt={state.name} src={state.url}></img>}<Link to={`/selectcity`}><button 
+            className='stateButton'
             onClick={(e) => chooseState(e.target.value)}
               
              value={state.name}>{state.name}
              
-             <State {...statesList}/>
-             
-             </button></Link>
+             </button></Link></div>
         })  : 'loading'
 
 
         return ( 
             <div className='main'>
-                <div className='stateContainer'>
-                {mappedStates}
+            <h2>Select the state you are hiking in!</h2>
+                <div className='container'>
+                    <div className='stateContainer'>
+                        {mappedStates}
+                </div>
                 </div>
             </div>
          );

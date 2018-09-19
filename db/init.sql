@@ -1,9 +1,15 @@
-
 CREATE TABLE sherpa_users (
+    id SERIAL PRIMARY KEY NOT NULL 
+    ,auth0_id text UNIQUE NOT NULL
+    ,name VARCHAR(100)
+    ,email VARCHAR(100)
+    ,picture TEXT
+);
+
+
+CREATE TABLE sherpa_profile (
     id SERIAL PRIMARY KEY NOT NULL
-    ,username VARCHAR(30) NOT NULL UNIQUE
-    ,password TEXT NOT NULL
-    ,email VARCHAR(45) NOT NULL UNIQUE
+    ,profile_id INTEGER REFERENCES sherpa_users(id) NOT NULL
     ,profilePic TEXT
     ,first_name VARCHAR(18) 
     ,last_name VARCHAR(25) 

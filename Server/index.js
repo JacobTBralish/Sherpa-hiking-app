@@ -3,9 +3,10 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const massive = require('massive');
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
-// const axios = require('axios');
+// const aC = require('./auth_controller');
+// const bcrypt = require('bcrypt');
+// const saltRounds = 12;
+const axios = require('axios');
 
 const app = express();
 
@@ -21,55 +22,126 @@ app.use(session({
 
 
 
-//bcrypt
+app.get('/auth/sherpa-callback', (req,res) => {
+  const payload = {
+      client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      client_secret: process.env.AUTH0_CLIENT_SECRET,
+      code: req.query.code,
+      grant_type:'authorization_code',
+      redirect_uri: `http://${req.headers.host}/auth/sherpa-callback`
+  }
 
-app.post('/register', (req, res) => {
-  const db = req.app.get('db')
-  const { username, password, email } = req.body;
-  bcrypt.hash(password, saltRounds).then(hashedPassword => {
- db.create_bcrypt_user([username, hashedPassword, email]).then(() => {
-    req.session.user = { username };
-    res.json({ username });
-  }).catch(error => {
-    if (error.message.match(/duplicate key/)) {
-      res.status(409).json({ message: "That user already exists." });
-    } else {
-      res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
-    }
-  });
-}).catch(error => {
-    res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
-});
-});
+  function tradeCodeForAccessToken(){console.log('hello')
+      return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, payload)
+  }
 
-app.post('/login', (req, res) => {
-  const db = req.app.get('db')
-    const { username, password } = req.body;
-    db.find_user([username]).then(data => {
-      if (data.length) {
-        bcrypt.compare(password, data[0].password).then(passwordsMatch => {
-        if (passwordsMatch) {
-          req.session.user = { username };
-          res.json({ username });
-        } else {
-          res.status(403).json({ message: 'Invalid password.' });
-        }
+   function tradeAccessTokenForUserInfo(accessTokenResponse){
+       const accessToken = accessTokenResponse.data.access_token;
+       return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo/?access_token=${accessToken}`);
+   }
+
+  function storeUserInfoInDatabase(response){console.log('hello')
+      const auth0Id = response.data.sub;
+      const db = req.app.get('db');
+      return db.find_user_by_auth0_id(auth0Id).then(users => {
+          if (users.length){
+              const user = users[0];
+              req.session.user = user;
+              res.redirect('/');
+          } else {
+              const userArray = [
+                  auth0Id,
+                  response.data.name,
+                  response.data.email,
+                  response.data.picture
+              ];
+              return db.create_user(userArray).then(newUser => {console.log('hello')
+                  req.session.user = newUser;
+                  res.redirect('/');
+              }).catch(error => {
+                  console.log('Error in db.create_user', error)
+                  res.status(500).json('Unexpected error')
+              })
+          }
       }).catch(error => {
-        res.status(500).json({ message: 'An error has occurred; for security reasons it cannot be disclosed.',error })
+          console.log('Error in find_user', error)
+          res.status(500).json('Unexpected error')
       })
-      } else {
-        res.status(403).json({ message: 'Unknown user' });
-      }
-    }).catch(error => {
-      console.log('error', error);
-      res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
-    });
-  });
+   }
+  tradeCodeForAccessToken()
+  .then(tradeAccessTokenForUserInfo)
+  .then(storeUserInfoInDatabase)
+  .catch(error => {
+    console.log('Error in auth/sherpa-callback', error)
+    res.status(500).json('Unexpected error')
 
-  app.post('/logout', (req, res) => {
-    req.session.destroy();
-    res.send();
   })
+})
+
+app.get('/api/user-data', (req,res) => {
+  res.json(req.session.user)
+})
+
+
+app.post('/api/logout', (req, res) => {
+  req.session.destroy();
+  res.json();
+})
+
+
+
+
+
+//bcrypt
+// app.post('/register', (req, res) => {
+//   const db = req.app.get('db')
+//   const { username, password, email } = req.body;
+//   bcrypt.hash(password, saltRounds).then(hashedPassword => {
+//  db.create_bcrypt_user([username, hashedPassword, email]).then(() => {
+//     req.session.user = { username };
+//     res.json({ username });
+//   }).catch(error => {
+//     if (error.message.match(/duplicate key/)) {
+//       res.status(409).json({ message: "That user already exists." });
+//     } else {
+//       res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
+//     }
+//   });
+// }).catch(error => {
+//     res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
+// });
+// });
+
+// app.post('/login', (req, res) => {
+//   const db = req.app.get('db')
+//     const { username, password } = req.body;
+//     db.find_user([username]).then(data => {
+//       if (data.length) {
+//         bcrypt.compare(password, data[0].password).then(passwordsMatch => {
+//         if (passwordsMatch) {
+//           req.session.user = { username };
+//           res.json({ username });
+//         } else {
+//           res.status(403).json({ message: 'Invalid password.' });
+//         }
+//       }).catch(error => {
+//         res.status(500).json({ message: 'An error has occurred; for security reasons it cannot be disclosed.',error })
+//       })
+//       } else {
+//         res.status(403).json({ message: 'Unknown user' });
+//       }
+//     }).catch(error => {
+//       console.log('error', error);
+//       res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
+//     });
+//   });
+
+//   app.post('/logout', (req, res) => {
+//     req.session.destroy();
+//     res.send();
+//   })
+
+
   
 
 massive(process.env.CONNECTION_STRING).then(database => {

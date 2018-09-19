@@ -1,0 +1,50 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-evenly; */
+    align-items: center;
+    /* align-content: space-evenly; */
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: space-evenly;
+    background: white;
+    width: 95vw;
+    align-items: center;
+    align-content: center;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
+.stateContainer {
+    align-self: stretch;
+    order: 0;
+    flex: 0 0 0px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 90px;
+    width: 220px;
+    height: 100%;
+    background: black;
+    /* margin: 0 auto; */
+}
+
+.stateButton {
+    color: white;
+    background: black;
+    border: none;
+    text-decoration: none;
+}
+
+.stateImage {
+    height: 200px ;
+    width: 200px ;
+}
+

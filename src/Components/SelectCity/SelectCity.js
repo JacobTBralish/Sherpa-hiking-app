@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { getCities, chooseCity, chooseState } from '../../Redux/reducer';
-import axios from 'axios';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import City from './city';
+// import City from './city';
 
 
 class SelectCity extends Component {
@@ -15,10 +14,7 @@ class SelectCity extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://raw.githubusercontent.com/JacobTBralish/list-of-states/master/majorcities.json').then(res => {
-            console.log(res.data)
-            this.props.getCities(res.data)
-        })
+        this.props.getCities();
     }
 
 
@@ -40,14 +36,14 @@ class SelectCity extends Component {
 
     render() { 
 
-        let { citiesList, chooseCity, chosenState } = this.props;
+        let { citiesList, chosenState, longitude, latitude } = this.props;
         
         let mappedCities = this.filterAndFindCities(citiesList[0], chosenState) ? this.filterAndFindCities(citiesList[0], chosenState).map((city, index) => {
             return <Link key={index} 
             to={{ 
             pathname: '/trails', 
             state: { longitude:  city.coordinates.longitude, latitude: city.coordinates.latitude} 
-          }}>{city.name}</Link>
+          }}><h5>{city.name}</h5></Link>
         }) : 'loading...';
         
       
@@ -67,7 +63,9 @@ class SelectCity extends Component {
 const mapStateToProps = state => {
     return{
         citiesList: state.citiesList,
-        chosenState: state.chosenState
+        chosenState: state.chosenState,
+        longitude: state.longitude,
+        latitude: state.latitude
     }
     
 }
