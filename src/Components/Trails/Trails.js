@@ -33,10 +33,8 @@ class Trails extends Component {
         let { trailsList, chooseTrail } = this.props;
 
         let mappedTrails = trailsList ?  trailsList.map((trail, index) => {
-            return <Link className='trailButton' to={{ pathname:`/trail`}} 
-             key={index}><button 
-             onClick={() => chooseTrail(trail.id)}
-             ><div>
+            return <Link onClick={() => chooseTrail(trail.id)} className='trailButton' to={{ pathname:`/trail`}} 
+             key={index}><div>
              
             
             <img src={trail.imgSmall} alt={trail.name}></img>
@@ -44,7 +42,7 @@ class Trails extends Component {
             <h6>Length: {trail.length + ' miles'}</h6>
             <h6>{trail.location}</h6>
             
-            </div></button></Link>
+            </div></Link>
         }) : 'loading'
         return ( 
         <div>

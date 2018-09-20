@@ -20,19 +20,24 @@ app.use(session({
     }
 }))
 
+
+massive(process.env.CONNECTION_STRING).then(database => {
+    console.log('Hooked up to your database bruhh.🤙')
+    app.set('db', database);
+}).catch(error => { console.log(error)});
+
 //----------------------------------------------------------------------------Auth0------------------------------------------------------------------\\
 
 app.get('/auth/callback', (req,res) => {
     console.log('auth callback has fired')
-  const payload = {
-      client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-      client_secret: process.env.AUTH0_CLIENT_SECRET,
-      code: req.query.code,
-      grant_type:'authorization_code',
-      redirect_uri: `http://${req.headers.host}/auth/callback`
-  }
-
-  function tradeCodeForAccessToken(){console.log('hello')
+        const payload = {
+            client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+            client_secret: process.env.AUTH0_CLIENT_SECRET,
+            code: req.query.code,
+            grant_type:'authorization_code',
+            redirect_uri: `http://${req.headers.host}/auth/callback`
+        }
+  function tradeCodeForAccessToken(){console.log('traded code for access token')
       return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, payload)
   }
 
@@ -41,15 +46,16 @@ app.get('/auth/callback', (req,res) => {
        return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo/?access_token=${accessToken}`);
    }
 
-  function storeUserInfoInDatabase(response){console.log('hello')
+  function storeUserInfoInDatabase(response){console.log('Stored user info in db')
       const auth0Id = response.data.sub;
+      console.log(auth0Id,'-------Auth0ID-------')
       const db = req.app.get('db');
       return db.find_user_by_auth0_id(auth0Id).then(users => {
           console.log('find user has fired')
           if (users.length){
               const user = users[0];
               req.session.user = user;
-              res.redirect('/');
+              res.redirect('/home');
           } else {
               const userArray = [
                   auth0Id,
@@ -58,7 +64,7 @@ app.get('/auth/callback', (req,res) => {
               ];
               return db.create_user(userArray).then(newUser => {console.log('create user has fired')
                   req.session.user = newUser;
-                  res.redirect('/');
+                  res.redirect('/home');
               }).catch(error => {
                   console.log('Error in db.create_user', error)
                   res.status(500).json('Unexpected error')
@@ -104,10 +110,6 @@ app.post('/api/profile', pC.postProfile);
 
 //----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
 
-massive(process.env.CONNECTION_STRING).then(database => {
-    console.log('Hooked up to your database bruhh.🤙')
-    app.set('db', database);
-}).catch(error => { console.log(error)});
 
 const PORT = 4000;
 app.listen(PORT, () => {

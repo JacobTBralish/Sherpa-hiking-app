@@ -13,6 +13,7 @@ componentDidMount(){
     // this.props.logIn();
     axios.get('/api/user-data').then(response => {
         const user = response.data;
+        console.log(response.data)
         this.props.logIn(user);
     })
 }
@@ -39,8 +40,7 @@ componentDidMount(){
 
 
     render(){
-        const { user } = this.props;
-        // const { id } = req.params;
+        // const { user } = this.props;
 
 
     return (
