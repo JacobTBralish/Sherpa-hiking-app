@@ -22,13 +22,14 @@ app.use(session({
 
 //----------------------------------------------------------------------------Auth0------------------------------------------------------------------\\
 
-app.get('/auth/sherpa-callback', (req,res) => {console.log('hello')
+app.get('/auth/callback', (req,res) => {
+    console.log('auth callback has fired')
   const payload = {
       client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
       client_secret: process.env.AUTH0_CLIENT_SECRET,
       code: req.query.code,
       grant_type:'authorization_code',
-      redirect_uri: `http://${req.headers.host}/auth/sherpa-callback`
+      redirect_uri: `http://${req.headers.host}/auth/callback`
   }
 
   function tradeCodeForAccessToken(){console.log('hello')
@@ -44,6 +45,7 @@ app.get('/auth/sherpa-callback', (req,res) => {console.log('hello')
       const auth0Id = response.data.sub;
       const db = req.app.get('db');
       return db.find_user_by_auth0_id(auth0Id).then(users => {
+          console.log('find user has fired')
           if (users.length){
               const user = users[0];
               req.session.user = user;
@@ -54,7 +56,7 @@ app.get('/auth/sherpa-callback', (req,res) => {console.log('hello')
                   response.data.name,
                   response.data.email,
               ];
-              return db.create_user(userArray).then(newUser => {console.log('hello')
+              return db.create_user(userArray).then(newUser => {console.log('create user has fired')
                   req.session.user = newUser;
                   res.redirect('/');
               }).catch(error => {
@@ -71,7 +73,7 @@ app.get('/auth/sherpa-callback', (req,res) => {console.log('hello')
   .then(tradeAccessTokenForUserInfo)
   .then(storeUserInfoInDatabase)
   .catch(error => {
-    console.log('Error in auth/sherpa-callback', error)
+    console.log('Error in auth/callback', error)
     res.status(500).json('Unexpected error')
 
   })

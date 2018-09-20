@@ -32,7 +32,17 @@ module.exports = {
                 res.status(500).json(error);
                 console.log(error, 'Error with creating your profile')
             })
-    }
+    },
 
+    // visitedTrail: (req, res) => {
+    //     const db = req.app.get('db');
+    //     let { id } = req.params;
+
+    //     db.visited_trail([ id ]).then(visited => {
+    //         res.status(200).json(visited)}).catch(error => {
+    //             res.status(500).json(error);
+    //             console.log(error, 'There was an error confirming your visit to this trail.')
+    //         })
+    // }
 
 }

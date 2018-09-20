@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const initialState = {
-    user: [],
+    user: {},
 
     chosenState:'',
     chosenCity: '',
@@ -50,7 +50,7 @@ const POST_EXPERIENCE = 'POST_EXPERIENCE';
 export default function reducer (state = initialState, action){
     console.log(action.payload)
     switch(action.type){
-        case LOGGED_IN:
+        case LOGGED_IN /* + `_FULFILLED` */:
             return {...state, user: action.payload}
         case LOGGED_OUT:
             return {...state, user: null}
@@ -167,14 +167,22 @@ export function chooseCity(item) {
 
 //----------------------------------------------------------------------LOGIN--------------------------------------------------------------\\
 
-export function logIn(){
+// export function logIn(){
+//     return {
+//         type: LOGGED_IN,
+//         payload: axios.get('/api/user-data')
+//         .then(response => {
+//             console.log(response.data)
+//             return response.data
+//         }).catch(err => console.log('error in login', err))
+//     }
+// }
+
+export function logIn(user){
+    console.log(user)
     return {
         type: LOGGED_IN,
-        payload: axios.get('/api/user-data')
-        .then(response => {
-            console.log(response.data)
-            return response.data
-        }).catch(err => console.log('error in login', err))
+        payload: user
     }
 }
 
@@ -188,12 +196,14 @@ export function logOut(){
 
 //----------------------------------------------------------------------PROFILE INFO--------------------------------------------------------------\\
 
-export function getProfile(profile){
+export function getProfile( id ){
     return {
         type: POST_PROFILE,
-        payload: axios.get('/api/profile', profile).then(response => {
+        payload: axios.get(`/api/profile?id=${ id }`).then(response => {
             return response.data}).catch(error => {
                 console.log(error, 'There was an error accessing your profile.')
+            }).catch(error => {
+                console.log(error, 'Error getting your profile.')
             })
     }
 }
