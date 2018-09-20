@@ -8,7 +8,7 @@ class Home extends Component {
             <div>
                 <div className='homeContainer'>
                     <div className='mainImg' >
-                        <img src={require('../../photos/mountain1.jpeg')}></img>
+                        <img alt='Sherpa Hiking' src={require('../../photos/mountain1.jpeg')}></img>
                     </div>
                 </div>
             </div>

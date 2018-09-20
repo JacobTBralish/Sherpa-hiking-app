@@ -3,7 +3,6 @@ CREATE TABLE sherpa_users (
     ,auth0_id text UNIQUE NOT NULL
     ,name VARCHAR(100)
     ,email VARCHAR(100)
-    ,picture TEXT
 );
 
 
@@ -11,10 +10,10 @@ CREATE TABLE sherpa_profile (
     id SERIAL PRIMARY KEY NOT NULL
     ,profile_id INTEGER REFERENCES sherpa_users(id) NOT NULL
     ,profilePic TEXT
+    ,bio TEXT
     ,first_name VARCHAR(18) 
     ,last_name VARCHAR(25) 
     ,experience VARCHAR(10)
-    ,DOB DATE
 );
 
 

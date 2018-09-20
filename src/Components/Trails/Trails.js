@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getTrails } from '../../Redux/reducer'
-// import Trail from '../Trails/Trail'
-// import { Link } from 'react-router-dom'
+import { getTrails, chooseTrail } from '../../Redux/reducer'
+import GoogleMap from '../GoogleMaps/GoogleMaps';
+import { Link } from 'react-router-dom'
 
 class Trails extends Component {
 
@@ -16,21 +16,25 @@ class Trails extends Component {
         })
     }
     render() { 
-        let { trailsList } = this.props;
+        let { trailsList, chooseTrail } = this.props;
 
         let mappedTrails = trailsList ?  trailsList.map((trail, index) => {
-            return <div key={index}>
+            return <Link className='trailButton' to={{ pathname:`/trail`}} 
+             key={index}><button 
+             onClick={() => chooseTrail(trail.id)}
+             ><div>
+             
             
             <img src={trail.imgSmall} alt={trail.name}></img>
             <h4>{trail.name}</h4>
             <h6>Length: {trail.length + ' miles'}</h6>
             <h6>{trail.location}</h6>
             
-            </div>
+            </div></button></Link>
         }) : 'loading'
         return ( 
         <div>
-            
+            <div><GoogleMap /></div>
             <div>{mappedTrails}</div>
             <p></p>
         
@@ -41,12 +45,14 @@ class Trails extends Component {
 
 const mapStateToProps = state => {
     return {
-        trailsList: state.trailsList
+        trailsList: state.trailsList,
+        chooseTrail: state.chooseTrail
     }
 }
 
 const mapDispatchToProps = {
-    getTrails
+    getTrails,
+    chooseTrail
 }
  
 export default connect(mapStateToProps,mapDispatchToProps)(Trails);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
+// const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
 
 class GoogleMaps extends Component {
@@ -61,7 +61,7 @@ const TrailsMap = withScriptjs(withGoogleMap((props) =>
             onMarkerClick={ this.handleMarkerClick }
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhBiMZ58GJ0s7lByIQVZpEsaetOT_Rf9o&v=3.exp&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height:`400px`, width: `95vw` }}/>}
+            containerElement={<div style={{ height:`400px`, width: `100vw` }}/>}
             mapElement={<div style={{ height: `100%` }} />}
             // MapWithAMarkerClusterer markers={this.state.markers} 
             />

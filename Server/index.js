@@ -3,13 +3,13 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const massive = require('massive');
+const pC = require('./profile_controller');
 // const aC = require('./auth_controller');
-// const bcrypt = require('bcrypt');
-// const saltRounds = 12;
 const axios = require('axios');
 
-const app = express();
+//------------------------------------------------------------------Session------------------------------------------------------------------\\
 
+const app = express();
 app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -20,9 +20,9 @@ app.use(session({
     }
 }))
 
+//----------------------------------------------------------------------------Auth0------------------------------------------------------------------\\
 
-
-app.get('/auth/sherpa-callback', (req,res) => {
+app.get('/auth/sherpa-callback', (req,res) => {console.log('hello')
   const payload = {
       client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
       client_secret: process.env.AUTH0_CLIENT_SECRET,
@@ -53,7 +53,6 @@ app.get('/auth/sherpa-callback', (req,res) => {
                   auth0Id,
                   response.data.name,
                   response.data.email,
-                  response.data.picture
               ];
               return db.create_user(userArray).then(newUser => {console.log('hello')
                   req.session.user = newUser;
@@ -82,11 +81,60 @@ app.get('/api/user-data', (req,res) => {
   res.json(req.session.user)
 })
 
-
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
   res.json();
 })
+
+
+//------------------------------------------------------------------------------Profile Controller------------------------------------------------------------------\\
+
+app.get('/api/profile/:id', pC.getProfile);
+app.put('/api/profile/:id', pC.editProfile);
+app.post('/api/profile', pC.postProfile);
+
+
+
+//------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
+
+
+
+
+//----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
+
+massive(process.env.CONNECTION_STRING).then(database => {
+    console.log('Hooked up to your database bruhh.🤙')
+    app.set('db', database);
+}).catch(error => { console.log(error)});
+
+const PORT = 4000;
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}.🏄`)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -140,16 +188,3 @@ app.post('/api/logout', (req, res) => {
 //     req.session.destroy();
 //     res.send();
 //   })
-
-
-  
-
-massive(process.env.CONNECTION_STRING).then(database => {
-    console.log('Hooked up to your database bruhh.🤙')
-    app.set('db', database);
-}).catch(error => { console.log(error)});
-
-const PORT = 4000;
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}.🏄`)
-})

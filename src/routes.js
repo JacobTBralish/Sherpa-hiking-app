@@ -6,10 +6,11 @@ import SelectCity from './Components/SelectCity/SelectCity';
 import City from './Components/SelectCity/city';
 import Trails from './Components/Trails/Trails';
 import Trail from './Components/Trails/Trail';
-// import Login from './Components/Login/Login';
-import Register from './Components/Register/Register';
+// import Register from './Components/Register/Register';
 import GoogleMaps from './Components/GoogleMaps/GoogleMaps';
 import Profile from './Components/Profile/Profile';
+import CreateProfile from './Components/Profile/CreateProfile';
+import EditProfile from './Components/Profile/EditProfile';
 
 
 
@@ -21,9 +22,10 @@ export default (
         <Route path='/city' component={City} />
         <Route path='/trails' component={Trails} />
         <Route path='/trail' component={Trail} />
-        {/* <Route path='/login' component={Login} /> */}
-        <Route path='/register' component={Register} />
+        {/* <Route path='/register' component={Register} /> */}
         <Route path='/googlemaps' component={GoogleMaps} />
-        <Route path='/profile' component={Profile} />
+        <Route path='/profile/:id' component={Profile} />
+        <Route path='/profileCreate:id' component={CreateProfile} />
+        <Route path='/profileEdit/:id' component={EditProfile} />
     </Switch>
 )

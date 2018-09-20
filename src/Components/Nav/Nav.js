@@ -10,11 +10,7 @@ class Nav extends Component {
 
 //the logIn in the axios is from the reducer
     componentDidMount(){
-        axios.get('/api/user-data').then(response => {
-            const user = response.data;
-            this.props.logIn(user);
-            // console.log(this.props)
-        })
+        this.props.logIn();
     }
     //this login goes to the onClick
     login = () => {
@@ -32,9 +28,14 @@ class Nav extends Component {
         })
     }
 
+    notLoggedIn = () => {
+        alert("You are not logged in! Please log in to access your profile.")
+    }
+
 
     render(){
-        // const { user, logOut } = this.props;
+        const { user } = this.props;
+        // const { id } = req.params;
 
 
     return (
@@ -48,7 +49,9 @@ class Nav extends Component {
             <button onClick={this.login} className='NavLink'><li>Login</li></button>
              <button onClick={this.logout}>Log Out</button>}
             <button className='NavLink'><li><Link to='/googlemaps' className='navButton' >Search the map</Link></li></button>
-            <button className='NavLink'><li><Link to='/profile' className='navButton' >Profile</Link></li></button>
+            {user ?
+            <button className='NavLink'><li><Link to={`/profile/:id`} className='navButton' >Profile</Link></li></button>
+            : this.notLoggedIn()}
         </ul>
     </div>
     )

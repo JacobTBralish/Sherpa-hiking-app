@@ -36,13 +36,13 @@ class SelectCity extends Component {
 
     render() { 
 
-        let { citiesList, chosenState, longitude, latitude } = this.props;
+        let { citiesList, chosenState/* , longitude, latitude */ } = this.props;
         
         let mappedCities = this.filterAndFindCities(citiesList[0], chosenState) ? this.filterAndFindCities(citiesList[0], chosenState).map((city, index) => {
             return <Link key={index} 
             to={{ 
             pathname: '/trails', 
-            state: { longitude:  city.coordinates.longitude, latitude: city.coordinates.latitude} 
+            state: { longitude:  city.coordinates.longitude, latitude: city.coordinates.latitude, trailId: city.coordinates.id} 
           }}><h5>{city.name}</h5></Link>
         }) : 'loading...';
         

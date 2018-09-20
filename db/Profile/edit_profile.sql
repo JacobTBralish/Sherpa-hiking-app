@@ -1,0 +1,1 @@
+UPDATE sherpa_profile SET profile_pic = $2, bio = $3, city = $4, state =$5, experience = $8 WHERE profile_id = $1
