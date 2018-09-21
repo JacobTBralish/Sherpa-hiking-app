@@ -26,8 +26,9 @@ module.exports = {
     postProfile: (req, res ) => {
         const db = req.app.get('db');
         let { profilePic, bio, city, state, first_name, last_name, experience } = req.body;
+        let { id } = req.params;
 
-        db.create_profile( [ profilePic, bio, city, state, first_name, last_name, experience ] ).then(profile => {
+        db.create_profile( [ id, profilePic, bio, city, state, first_name, last_name, experience ] ).then(profile => {
             res.status(200).json(profile)}).catch(error => {
                 res.status(500).json(error);
                 console.log(error, 'Error with creating your profile')
@@ -45,4 +46,14 @@ module.exports = {
     //         })
     // }
 
+        profileCreated: (req, res) => {
+            const db = req.app.get('db');
+            let {id } =req.params;
+
+            db.profile_finished( id ).then(finished => {
+                res.status(200).json(finished)}).catch(error => {
+                    res.status(500).json(error);
+                    console.log(error, 'Error with marking profile completed')
+                })
+        }
 }

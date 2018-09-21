@@ -15,6 +15,8 @@ componentDidMount(){
         const user = response.data;
         console.log(response.data)
         this.props.logIn(user);
+        if (user && !user.profileFinished){
+        alert('Please complete your profile!')}
     })
 }
     //this login goes to the onClick
@@ -40,24 +42,26 @@ componentDidMount(){
 
 
     render(){
-        // const { user } = this.props;
+        const { user } = this.props;
 
 
     return (
     <div className='NavBack'>
-        <ul className='Navbar'>
-            <button className='NavLink'><li><Link to='/' className='navButton' >Home</Link></li></button>
-           
-            <button className='NavLink'><li><Link to='/selectstate' className='navButton' >Find Trails</Link></li></button>
+        <div className='buttonContainer'>
+            <ul className='Navbar'>
+                <button className='NavLink'><li><Link to='/' className='navButton' >Home</Link></li></button>
+            
+                <button className='NavLink'><li><Link to='/selectstate' className='navButton' >Find Trails</Link></li></button>
 
-            {/*---------------------- fix ternary -------------------------*/}
-            <button onClick={this.login} className='NavLink'><li>Login</li></button>
-             <button onClick={this.logout}>Log Out</button>}
-            <button className='NavLink'><li><Link to='/googlemaps' className='navButton' >Search the map</Link></li></button>
-            {/* {!user ? */}
-            <button className='NavLink'><li><Link to={`/profile`} className='navButton' >Profile</Link></li></button>
-            {/* // : this.notLoggedIn()} */}
-        </ul>
+                {/*---------------------- fix ternary -------------------------*/}
+                <button onClick={this.login} className='NavLink'><li>Login</li></button>
+                <button onClick={this.logout}>Log Out</button>}
+                <button className='NavLink'><li><Link to='/googlemaps' className='navButton' >Search the map</Link></li></button>
+                {/* {user ? */}
+                <button className='NavLink'><li><Link to={user.profileFinished ? `/profile/${user.id}` : '/profileCreate'}  className='navButton' >Profile</Link></li></button>
+                {/* // : this.notLoggedIn()} */}
+            </ul>
+        </div>
     </div>
     )
 }

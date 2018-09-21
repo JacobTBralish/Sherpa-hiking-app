@@ -3,6 +3,7 @@ CREATE TABLE sherpa_users (
     ,auth0_id text UNIQUE NOT NULL
     ,name VARCHAR(100)
     ,email VARCHAR(100)
+    ,profileFinished BOOLEAN DEFAULT false
 );
 
 
@@ -11,6 +12,8 @@ CREATE TABLE sherpa_profile (
     ,profile_id INTEGER REFERENCES sherpa_users(id) NOT NULL
     ,profilePic TEXT
     ,bio TEXT
+    city VARCHAR(40)
+    ,state VARCHAR(15)
     ,first_name VARCHAR(18) 
     ,last_name VARCHAR(25) 
     ,experience VARCHAR(10)

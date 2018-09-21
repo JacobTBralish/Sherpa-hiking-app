@@ -52,19 +52,19 @@ app.get('/auth/callback', (req,res) => {
       const db = req.app.get('db');
       return db.find_user_by_auth0_id(auth0Id).then(users => {
           console.log('find user has fired')
-          if (users.length){
+          if (users.length){console.log(users)
               const user = users[0];
               req.session.user = user;
-              res.redirect('/home');
+              res.redirect('/');
           } else {
               const userArray = [
                   auth0Id,
                   response.data.name,
                   response.data.email,
               ];
-              return db.create_user(userArray).then(newUser => {console.log('create user has fired')
+              return db.create_user(userArray).then(newUser => {console.log(newUser,'create user has fired')
                   req.session.user = newUser;
-                  res.redirect('/home');
+                  res.redirect('/');
               }).catch(error => {
                   console.log('Error in db.create_user', error)
                   res.status(500).json('Unexpected error')
@@ -85,6 +85,7 @@ app.get('/auth/callback', (req,res) => {
   })
 })
 
+
 app.get('/api/user-data', (req,res) => {
   res.json(req.session.user)
 })
@@ -101,6 +102,7 @@ app.get('/api/profile/:id', pC.getProfile);
 app.put('/api/profile/:id', pC.editProfile);
 app.post('/api/profile', pC.postProfile);
 
+app.post('/api/profile:id', pC.profileCreated);
 
 
 //------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\

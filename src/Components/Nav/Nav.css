@@ -5,7 +5,14 @@
     height: 80px;
     width: 100vw;
     align-content: center;
-    align-items: center;
+    align-items: stretch;
+}
+.buttonContainer {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    align-content: center;
 }
 
 .NavBar {
@@ -18,7 +25,7 @@
     align-content: center;
 }
 
-.NavLink {
+/* .NavLink {
     text-decoration: none;
     color: rgb(231, 123, 0) ;
     align-self: stretch;
@@ -29,4 +36,4 @@
     flex-basis: 90px;
     list-style-type: none;
 
-}
+} */

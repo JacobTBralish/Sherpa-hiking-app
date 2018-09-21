@@ -1,63 +1,74 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
 import { connect } from 'react-redux';
-import { postProfile ,postProfilePic, postBio, postCity, postState, postFirstName, postLastName, postExperience } from '../../Redux/reducer'
+import { postProfile, profileFinished } from '../../Redux/reducer'
 import { Link } from 'react-router-dom';
 
 class CreateProfile extends Component {
+    constructor() {
+        super();
+        this.state = {
+            profilePic: '',
+            bio: '',
+            city: '',
+            profileState: '',
+            firstName: '',
+            lastName: '',
+            experience: ''
+        }
+    }
 
-
-
+    handleChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value
+        })
+    }
 
     render() { 
-        let { profilePic, bio, city, profileState, firstName, lastName, experience } = this.props;
+        let { profilePic, bio, city, profileState, firstName, lastName, experience } = this.state;
+        let { user } = this.props;
         return ( 
         <div>
-            <div>
-                <input onClick={e => postProfilePic(e.target.value)} className='ProfileInput' value={profilePic}></input>
-                <input onClick={e => postBio(e.target.value)} className='ProfileInput' value={bio}></input>
-                <input onClick={e => postCity(e.target.value)} className='ProfileInput' value={city}></input>
-                <input onClick={e => postState(e.target.value)} className='ProfileInput' value={profileState}></input>
-                <input onClick={e => postFirstName(e.target.value)} className='ProfileInput' value={firstName}></input>
-                <input onClick={e => postLastName(e.target.value)} className='ProfileInput' value={lastName}></input>
-                <optgroup onClick={e => postExperience(e.target.value)} value={experience}>
-                    <option>Beginner</option>
-                    <option>Novice</option>
-                    <option>Average</option>
-                    <option>Experienced</option>
-                    <option>Master</option>
-                </optgroup>
+            <body className='mainContainer'>
+                <form>
+                    <label>Profile URL</label>
+                    <input placeholder='Picture URL' onChange={this.handleChange} className='ProfileInput' id='profilePic' value={profilePic}></input>
+                    <label>Tell us about you</label>
+                    <input placeholder='Bio' onChange={this.handleChange} className='ProfileInput' id='bio' value={bio}></input>
+                    <label>What city and state do you live in?</label>
+                    <input placeholder='City' onChange={this.handleChange} className='BioInput' id='city' value={city}></input>
+                    <input placeholder='State' onChange={this.handleChange} className='ProfileInput' id='profileState' value={profileState}></input>
+                    <label>What's your name?</label>
+                    <input placeholder='First Name' onChange={this.handleChange} className='ProfileInput' id='firstName' value={firstName}></input>
+                    <input placeholder='Last Name' onChange={this.handleChange} className='ProfileInput' id='lastName' value={lastName}></input>
+                    <label>How experienced are you with hiking?</label>
+                    <select onChange={this.handleChange} id='experience' value={experience}>
+                        <option value='Beginner'>Beginner</option>
+                        <option value='Novice'>Novice</option>
+                        <option value='Average'>Average</option>
+                        <option value='Experienced'>Experienced</option>
+                        <option value='Master'>Master</option>
+                    </select>
 
-                <Link to='/profile'><button onClick={() => {postProfile( profilePic, bio, city, profileState, firstName, lastName, experience )}}></button></Link>
-            
-            </div>
-            Profile 1
+                    <button onClick={() => {postProfile( user.id ,profilePic, bio, city, profileState, firstName, lastName, experience )}}>Apply</button>
+                    <Link to={`/profile/${user.id}`}><button>Save Changes</button></Link>
+                
+                </form>
+            </body>
         </div> 
         );
     }
 }
 
 const mapStateToProps = state => {
-    return {
-        profilePic: state.profilePic,
-        bio: state.bio,
-        city: state.city,
-        profileState: state.profileState,
-        firstName: state.firstName,
-        lastName: state.lastName,
-        experience: state.experience
+    return{
+        user: state.user
     }
 }
 
 const mapDispatchToProps = {
     postProfile,
-    postProfilePic,
-    postBio,
-    postCity,
-    postState,
-    postFirstName,
-    postLastName,
-    postExperience
+    profileFinished
 }
  
 export default connect(mapStateToProps,mapDispatchToProps)(CreateProfile);

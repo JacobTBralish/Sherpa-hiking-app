@@ -1,7 +1,13 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 
 const initialState = {
     user: {},
+    profile: {
+        // profile_id: 1, 
+        // profilePic: 'https://avatars0.githubusercontent.com/u/38444765?s=400&u=239fb6df4f1920a4634163070bbc1fa1a759774c&v=4',
+        // bio: , city, state, first_name, last_name, experience
+    },
 
     chosenState:'',
     chosenCity: '',
@@ -15,15 +21,14 @@ const initialState = {
     latitude: '',
     longitude: '',
 
-    profile: [],
     profilePic: '',
     bio: '',
     city: '',
     profileState: '',
     firstName: '',
     lastName: '',
-    experience: ''
-
+    experience: '',
+    profileFinished: false
     
 }
 
@@ -46,6 +51,7 @@ const POST_PROFILE_STATE = 'POST_PROFILE_STATE';
 const POST_FIRST_NAME = 'POST_FIRST_NAME';
 const POST_LAST_NAME = 'POST_LAST_NAME';
 const POST_EXPERIENCE = 'POST_EXPERIENCE';
+const PROFILE_FINISHED = 'PROFILE_FINISHED'
 
 export default function reducer (state = initialState, action){
     console.log(action.payload)
@@ -58,26 +64,28 @@ export default function reducer (state = initialState, action){
             return {...state, chosenState: action.payload}
         case CHOSEN_CITY:
             return {...state, chosenCity: action.payload}
-            case GET_STATES + `_FULFILLED`:
+        case GET_STATES + `_FULFILLED`:
             return {...state, statesList: action.payload}
         case GET_CITIES + `_FULFILLED`:
-        return {...state, citiesList: action.payload}
+            return {...state, citiesList: action.payload}
         case GET_TRAILS:
-        return {...state, trailsList: action.payload}
+            return {...state, trailsList: action.payload}
 
 
         case GET_TRAIL:
-        return {...state, chosenTrail: action.payload}
+            return {...state, chosenTrail: action.payload}
         case CHOSEN_TRAIL:
             return {...state, trailId: action.payload}
 
 
         case GET_PROFILE + `_FULFILLED`:
-                return {...state, profile: action.payload}
+            return {...state, profile: action.payload}
         case POST_PROFILE + `_FULFILLED`:
-                return {...state, profile: action.payload}
+            return {...state, profile: action.payload}
         case EDIT_PROFILE + `_FULFILLED`:
-                return {...state, profile: action.payload}
+            return {...state, profile: action.payload}
+        case PROFILE_FINISHED + `_FULFILLED`:
+            return {...state, profileFinished: action.payload}
         case POST_PROFILE_PIC:
             return {...state, profilePic: action.payload}
         case POST_BIO:
@@ -196,23 +204,52 @@ export function logOut(){
 
 //----------------------------------------------------------------------PROFILE INFO--------------------------------------------------------------\\
 
-export function getProfile( id ){
+export function getProfile(id){
+    console.log('Get Profile')
     return {
-        type: POST_PROFILE,
-        payload: axios.get(`/api/profile?id=${ id }`).then(response => {
+        type: GET_PROFILE,
+        payload: axios.get(`/api/profile`, id ).then(response => {
             return response.data}).catch(error => {
                 console.log(error, 'There was an error accessing your profile.')
-            }).catch(error => {
-                console.log(error, 'Error getting your profile.')
             })
     }
 }
 
-export function postProfile(profilePic, bio, firstName, lastName, experience ){
+export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
     return {
         type: POST_PROFILE,
-        payload: axios.post('/api/profile', [profilePic, bio, firstName, lastName, experience ]).then(response => {
+        payload: axios.post(`/api/profile/${id}`, [ profilePic, bio, city, profileState, firstName, lastName, experience ]).then(response => {
+            console.log(response.data, 'Here is the profiles response.data')
             return response.data;
+        })
+    }
+}
+
+
+//Redux Thunk used for async completion and redirect
+// export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
+//     let request = axios.post('/api/profile', [ id, profilePic, bio, city, profileState, firstName, lastName, experience ]);
+
+//     return {
+//         type: POST_PROFILE,
+//         payload: function(dispatch){
+//             request.then((response) => {
+//                 console.log('The profile has been created', response);
+//                 dispatch(push('/profile'));
+//             }).catch((error) => {
+//                 console.log(error, 'The profile was unable to be created');
+//                 dispatch(push('/profile'));
+//             })
+//         }
+        
+//     }
+// }
+
+export function profileFinished( id ){
+    return{
+        type: PROFILE_FINISHED,
+        payload: axios.post(`/api/profile/${ id }`).then(response => {
+            return response.data
         })
     }
 }

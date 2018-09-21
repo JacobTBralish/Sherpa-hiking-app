@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-inport 
+import { connect } from 'react-redux';
 // import images from '../../photos/'
 
 class Home extends Component {
@@ -10,12 +10,11 @@ class Home extends Component {
             <div>
                 <div className='homeContainer'>
                 {user 
-                ?<div>
-           <div>Name :{user.name}</div> 
-           <div>Email :{user.email}</div> 
-           <div>
-               <img src={user.picture} alt={user.name}></img></div> 
-               <button onClick={this.props.logOut}>Logout</button>
+                    ?<div>
+                        <div>Name :{user.name}</div> 
+                        <div>Email :{user.email}</div> 
+                        <div>
+               </div> 
            
            </div> : <div> You need to log in</div>
             } 
@@ -25,6 +24,12 @@ class Home extends Component {
                 </div>
             </div>
          );
+    }
+}
+
+const mapStateToProps= state => {
+    return {
+        user:state.user
     }
 }
  
