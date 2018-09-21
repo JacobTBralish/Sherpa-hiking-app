@@ -25,8 +25,9 @@ module.exports = {
 
     postProfile: (req, res ) => {
         const db = req.app.get('db');
-        let { profilePic, bio, city, state, first_name, last_name, experience } = req.body;
-        let { id } = req.params;
+        console.log(req.body)
+        let { id, profilePic, bio, city, state, first_name, last_name, experience } = req.body;
+        // let { id } = req.params
 
         db.create_profile( [ id, profilePic, bio, city, state, first_name, last_name, experience ] ).then(profile => {
             res.status(200).json(profile)}).catch(error => {

@@ -1,13 +1,9 @@
 import axios from 'axios';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 
 const initialState = {
     user: {},
-    profile: {
-        // profile_id: 1, 
-        // profilePic: 'https://avatars0.githubusercontent.com/u/38444765?s=400&u=239fb6df4f1920a4634163070bbc1fa1a759774c&v=4',
-        // bio: , city, state, first_name, last_name, experience
-    },
+    profile: {},
 
     chosenState:'',
     chosenCity: '',
@@ -216,9 +212,10 @@ export function getProfile(id){
 }
 
 export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
+    console.log(id, profilePic, bio, city, profileState, firstName, lastName, experience)
     return {
         type: POST_PROFILE,
-        payload: axios.post(`/api/profile/${id}`, [ profilePic, bio, city, profileState, firstName, lastName, experience ]).then(response => {
+        payload: axios.post(`/api/profile`, { id, profilePic, bio, city, profileState, firstName, lastName, experience }).then(response => {
             console.log(response.data, 'Here is the profiles response.data')
             return response.data;
         })

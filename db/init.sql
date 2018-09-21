@@ -12,7 +12,7 @@ CREATE TABLE sherpa_profile (
     ,profile_id INTEGER REFERENCES sherpa_users(id) NOT NULL
     ,profilePic TEXT
     ,bio TEXT
-    city VARCHAR(40)
+    ,city VARCHAR(40)
     ,state VARCHAR(15)
     ,first_name VARCHAR(18) 
     ,last_name VARCHAR(25) 
