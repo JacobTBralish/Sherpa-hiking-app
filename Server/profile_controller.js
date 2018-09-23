@@ -29,7 +29,7 @@ module.exports = {
         let { id, profilePic, bio, city, state, first_name, last_name, experience } = req.body;
         // let { id } = req.params
 
-        db.create_profile( [ id, profilePic, bio, city, state, first_name, last_name, experience ] ).then(profile => {
+        db.create_profile( [ id, `{${profilePic}}`, bio, city, state, first_name, last_name, experience ] ).then(profile => {
             res.status(200).json(profile)}).catch(error => {
                 res.status(500).json(error);
                 console.log(error, 'Error with creating your profile')

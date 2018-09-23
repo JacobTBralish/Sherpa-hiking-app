@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getTrail } from '../../Redux/reducer';
 import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom';
+import './Trail.css';
 
 class Trail extends Component {
 
@@ -16,37 +17,37 @@ componentDidMount() {console.log('hello')
 }
 
     render() { 
-        // let { trailsList, chooseTrail } = this.props;
-
-        // let mappedTrails = trailsList ?  trailsList.map((trail, index) => {
-        //     return 
-        //      <div key={index}>
-            
-        //     <img src={trail.imgSmall} alt={trail.name}></img>
-        //     <h4>{trail.name}</h4>
-        //     <h6>Length: {trail.length + ' miles'}</h6>
-        //     <h6>{trail.location}</h6>
-            
-        //     </div>
-        // }) : 'loading'
 
         let { chosenTrail } = this.props;
 
-        let showTrail = chosenTrail.map((trail, index) => {
-            return <div key={index}>
-            
-            <img src={trail.imgMedium} alt={trail.name}></img>
-            <p>Name: {trail.name}</p>
-
+        let showTrail = chosenTrail ? chosenTrail.map((trail, index) => {
+           return (
+            <div key={index} className='mainContainer'>
+                <div className='trailContainer'>
+                    <div className='imageContainer'><img className='trailImage' src={trail.imgMedium} alt={trail.name}></img></div>
+                        <div className='infoContainer'>
+                        <h6>Name: {trail.name}</h6>
+                        <h6>Location: {trail.location}</h6>
+                        <h6>Rating: {trail.stars}/5</h6>
+                        <h6>Difficulty: {trail.difficulty}</h6>
+                        <h6>Length: {trail.length} miles</h6>
+                        <h6>Starting elevation: {trail.low}</h6>
+                        <h6>Highest elevation: {trail.high}</h6>
+                        <h6>acent: {trail.acent}</h6>
+                        <h6>Latitude: {trail.latitude}</h6>
+                        <h6>Longitude: {trail.longitude}</h6>
+                        <h6>Description: {trail.summary}</h6>
+                    
+                    
+                    </div>
+                </div>
             </div>
-        })
+            )
+        }) : 'Loading...'
 
         return ( 
             <div>
-                <p>{showTrail}</p>
-                {/* <p>{this.props.trail.location}</p> */}
-                <h1>Hello</h1>
-                <p></p>
+               <div>{showTrail}</div>
             </div>
          );
     }

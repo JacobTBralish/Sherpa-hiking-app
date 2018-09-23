@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const initialState = {
     user: {},
-    profile: {},
+    profile: [],
 
     chosenState:'',
     chosenCity: '',
@@ -74,8 +74,8 @@ export default function reducer (state = initialState, action){
             return {...state, trailId: action.payload}
 
 
-        case GET_PROFILE + `_FULFILLED`:
-            return {...state, profile: action.payload}
+        // case GET_PROFILE + `_FULFILLED`:
+        //     return {...state, profile: action.payload}
         case POST_PROFILE + `_FULFILLED`:
             return {...state, profile: action.payload}
         case EDIT_PROFILE + `_FULFILLED`:
@@ -171,16 +171,6 @@ export function chooseCity(item) {
 
 //----------------------------------------------------------------------LOGIN--------------------------------------------------------------\\
 
-// export function logIn(){
-//     return {
-//         type: LOGGED_IN,
-//         payload: axios.get('/api/user-data')
-//         .then(response => {
-//             console.log(response.data)
-//             return response.data
-//         }).catch(err => console.log('error in login', err))
-//     }
-// }
 
 export function logIn(user){
     console.log(user)
@@ -200,16 +190,13 @@ export function logOut(){
 
 //----------------------------------------------------------------------PROFILE INFO--------------------------------------------------------------\\
 
-export function getProfile(id){
-    console.log('Get Profile')
-    return {
-        type: GET_PROFILE,
-        payload: axios.get(`/api/profile`, id ).then(response => {
-            return response.data}).catch(error => {
-                console.log(error, 'There was an error accessing your profile.')
-            })
-    }
-}
+// export function getProfile(id){
+//     console.log('Get Profile')
+//     return {
+//         type: GET_PROFILE,
+//         payload: 
+//     }
+// }
 
 export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
     console.log(id, profilePic, bio, city, profileState, firstName, lastName, experience)

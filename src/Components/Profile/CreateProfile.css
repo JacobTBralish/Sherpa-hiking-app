@@ -1,0 +1,33 @@
+
+.mainProfileContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    font-family: Montserrat, sans-serif;
+    justify-content: center;
+}
+
+.profileContainer {
+    display: flex;
+    width: 95vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.profileInfoContainer {
+    justify-content: center;
+    display: flex;
+    margin: 50px;
+    flex-direction: column;
+    text-align: left;
+    background: rgb(228, 115, 74);
+    padding: 20px;
+    align-content: center
+
+}
+
+#bio {
+    height: 100px; 
+}

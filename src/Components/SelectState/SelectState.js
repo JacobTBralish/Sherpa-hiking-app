@@ -18,11 +18,16 @@ class SelectState extends Component {
         let { statesList, chooseState } = this.props;
         // console.log(statesList);
         let mappedStates = statesList ? statesList.map((state, index) => {
-        return <div key={index} >{<img className='stateImage' alt={state.name} src={state.url}></img>}<Link to={`/selectcity`}><button 
+        return <div className='stateContainer' key={index} ><Link to={`/selectcity`}><button 
             className='stateButton'
+            
             onClick={(e) => chooseState(e.target.value)}
               
-             value={state.name}>{state.name}
+             value={state.name}>
+             
+             <img className='stateImage' alt={state.name} src={state.url}></img>
+             
+             {state.name}
              
              </button></Link></div>
         })  : 'loading'
@@ -30,11 +35,11 @@ class SelectState extends Component {
 
         return ( 
             <div className='main'>
-            <h2>Select the state you are hiking in!</h2>
+            {/* <h2 className='statesTitle'>Select the state you are hiking in!</h2> */}
                 <div className='container'>
-                    <div className='stateContainer'>
+                    {/* <div className='stateContainer'> */}
                         {mappedStates}
-                </div>
+                {/* </div> */}
                 </div>
             </div>
          );

@@ -1,11 +1,30 @@
+.mainContainer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center
+
+}
+
 .homeContainer {
     display: flex;
     width: 95vw;
-    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
-.mainImg {
+.imgContainer {
+    width: 100vw;
+    height: 800px;
+}
+
+ #homeImage {
+    width: 150%;
+    height: 500px;
+}
+
+/* .mainImg {
     width: 100vw;
     height: 200px;
     /* background-image: url('../../photos/mountain1.jpeg') */
-}
+/* } */

@@ -1,39 +1,60 @@
 
+:root {
+    --mainColor: rgb(228, 115, 74);
+  }
+
+.logo {
+    align-content: flex-start;
+    height: 80px;
+    width: 80px;
+}
+
+.webTitle{
+    margin: 20px;
+  }
+
 .NavBack {
     display: flex;
-    background: black;
+    background: grey;
     height: 80px;
     width: 100vw;
-    align-content: center;
-    align-items: stretch;
+    flex-direction: row-reverse;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
 }
-.buttonContainer {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: stretch;
-    align-content: center;
-}
-
-.NavBar {
-    background:black;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: flex-end;
-    align-content: center;
-}
-
-/* .NavLink {
+a {
+    color: black;
     text-decoration: none;
-    color: rgb(231, 123, 0) ;
-    align-self: stretch;
-    order: 0;
-    flex: 0 0 0px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 90px;
-    list-style-type: none;
+}
 
-} */
+.buttonContainer {
+    display: flex;
+    height: 80px;
+    align-items: stretch;
+    /* padding: 20px; */
+    
+}
+
+.navButton {
+    text-decoration: none;
+    /* background: grey; */
+    border: 1px;
+    border-color: darkgray;
+    color:black;
+    padding: 20px;
+    background:
+     linear-gradient(
+       to bottom, var(--mainColor) 0%,
+       var(--mainColor) 100%
+     );
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: 4px 0px;
+    transition: background-size .4s;
+    
+
+}
+
+.navButton:hover {
+    background-size: 4px 90px;
+  }

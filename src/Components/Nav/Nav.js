@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { logIn, logOut  } from '../../Redux/reducer';
 import axios from 'axios';
 import { connect } from 'react-redux'
+import logo from '../../photos/edited-sherpa.png';
 import './Nav.css';
 
 
@@ -13,7 +14,7 @@ componentDidMount(){
     // this.props.logIn();
     axios.get('/api/user-data').then(response => {
         const user = response.data;
-        console.log(response.data)
+        // console.log(response.data)
         this.props.logIn(user);
         if (user && !user.profileFinished){
         alert('Please complete your profile!')}
@@ -46,23 +47,32 @@ componentDidMount(){
 
 
     return (
+        <div>
     <div className='NavBack'>
+    <div className='userNameBox'>{user ? `Hello ${user.name}` : '' }</div>
+    <img className='logo' src={logo}></img>
+
+    <div className='webTitle'><h1>SHERPA</h1></div>
         <div className='buttonContainer'>
-            <ul className='Navbar'>
-                <button className='NavLink'><li><Link to='/' className='navButton' >Home</Link></li></button>
+            {/* <div className='Navbar'> */}
+                <button className='navButton'><Link to='/'  >Home</Link></button>
             
-                <button className='NavLink'><li><Link to='/selectstate' className='navButton' >Find Trails</Link></li></button>
+                <button className='navButton'><Link to='/selectstate' >Find Trails</Link></button>
 
                 {/*---------------------- fix ternary -------------------------*/}
-                <button onClick={this.login} className='NavLink'><li>Login</li></button>
-                <button onClick={this.logout}>Log Out</button>}
-                <button className='NavLink'><li><Link to='/googlemaps' className='navButton' >Search the map</Link></li></button>
+                {!user
+                ?
+                <button onClick={this.login} className='navButton'>Login</button>
+                    :
+                <button onClick={this.logout} className='navButton'>Log Out</button>}
+
+                <button className='navButton'><Link to='/googlemaps'>Search the map</Link></button>
                 {/* {user ? */}
-                <button className='NavLink'><li><Link to={user.profileFinished ? `/profile/${user.id}` : '/profileCreate'}  className='navButton' >Profile</Link></li></button>
+                <button className='navButton'><Link to={/* user.profileFinished ?  */`/profile/${user.id}`/*  : '/profileCreate' */} >Profile</Link></button>
                 {/* // : this.notLoggedIn()} */}
-            </ul>
+            {/* </div> */}
         </div>
-    </div>
+    </div></div>
     )
 }
 }
