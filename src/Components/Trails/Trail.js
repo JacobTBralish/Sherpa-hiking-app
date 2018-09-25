@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { getTrail } from '../../Redux/reducer';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import Reviews from '../Reviews/Reviews';
 // import { Link } from 'react-router-dom';
 import './Trail.css';
 
@@ -37,8 +38,7 @@ componentDidMount() {console.log('hello')
                         <h6>Latitude: {trail.latitude}</h6>
                         <h6>Longitude: {trail.longitude}</h6>
                         <h6>Description: {trail.summary}</h6>
-                    
-                    
+                        <button></button>
                     </div>
                 </div>
             </div>
@@ -48,6 +48,7 @@ componentDidMount() {console.log('hello')
         return ( 
             <div>
                <div>{showTrail}</div>
+               <div><Reviews trailId={this.props.trailId} /></div>
             </div>
          );
     }

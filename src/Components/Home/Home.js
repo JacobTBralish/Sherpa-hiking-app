@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mainImage from '../../photos/appalachiantrail.jpg'
+import mainImage from '../../photos/clouds-conifers-daylight.jpg';
+import './Home.css'
 
 class Home extends Component {
     state = {  }
@@ -11,16 +12,16 @@ class Home extends Component {
                 <div className='homeContainer'>
                     <div >
                     {user 
-                        ?<div>
+                        ?<div  className='login-display'>
                             <div>Name :{user.name}</div> 
                             <div>Email :{user.email}</div> 
                             <div>
-                </div> 
+                        </div> 
             
-            </div> : <div> You need to log in</div>
+            </div> : <div> </div>
                 } 
                         <div className='imgContainer' >
-                            <img id='homeImage' alt='Sherpa Hiking' src='https://s3.amazonaws.com/whole-journeys-assets/production/uploads/MaroonBells_900.jpg'></img>
+                            <img id='homeImage' alt='Sherpa Hiking' src={mainImage}></img>
                         </div>
                     </div>
                 </div>

@@ -1,1 +1,2 @@
-UPDATE sherpa_users set profileFinished = $1 where id = $2;
+UPDATE sherpa_users set profileFinished = true where id = $1
+returning * ;

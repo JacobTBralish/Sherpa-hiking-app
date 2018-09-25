@@ -6,6 +6,31 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
+import registerServiceWorker from './registerServiceWorker';
+
+import { AppContainer } from 'react-hot-loader';
 
 
-ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>, document.getElementById('root'));
+const render = () => {
+ReactDOM.render(
+<AppContainer>
+    <Provider store={store}>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+    </Provider>
+    </AppContainer>,
+     document.getElementById('root')
+    );
+}
+
+registerServiceWorker();
+
+render();
+
+
+if (module.hot) {
+    module.hot.accept('./App', () => {
+      render();
+    });
+  }

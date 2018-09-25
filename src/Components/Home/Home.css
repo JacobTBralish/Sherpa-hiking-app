@@ -8,23 +8,44 @@
 
 .homeContainer {
     display: flex;
-    width: 95vw;
+    width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .imgContainer {
-    width: 100vw;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.homeContainer > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     height: 800px;
+    overflow: hidden;
+    position: relative;
 }
 
- #homeImage {
-    width: 150%;
-    height: 500px;
+.login-display {
+    background: red;
+    position: absolute;
+    width: 500px;
+    height: 30px;
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.39);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
 }
 
-/* .mainImg {
-    width: 100vw;
-    height: 200px;
-    /* background-image: url('../../photos/mountain1.jpeg') */
-/* } */
+.homeContainer img{
+    width: 100%;
+
+}
+

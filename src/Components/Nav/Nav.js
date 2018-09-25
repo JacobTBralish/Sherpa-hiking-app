@@ -8,16 +8,20 @@ import './Nav.css';
 
 
 class Nav extends Component {
+    constructor(props){
+        super(props);
+        this.state ={
+
+        }
+    }
 
 //the logIn in the axios is from the reducer
 componentDidMount(){
-    // this.props.logIn();
     axios.get('/api/user-data').then(response => {
         const user = response.data;
-        // console.log(response.data)
         this.props.logIn(user);
-        if (user && !user.profileFinished){
-        alert('Please complete your profile!')}
+        // if (user && !user.profileFinished){
+        // alert('Please complete your profile!')}
     })
 }
     //this login goes to the onClick
@@ -43,14 +47,14 @@ componentDidMount(){
 
 
     render(){
-        const { user } = this.props;
+        const { user, profile, firstName } = this.props;
 
-
+        console.log(profile)
     return (
         <div>
     <div className='NavBack'>
-    <div className='userNameBox'>{user ? `Hello ${user.name}` : '' }</div>
-    <img className='logo' src={logo}></img>
+                <div className='userNameBox'>{!user ? '' : `Hello ${user.name}!` }</div>
+    {/* <img className='logo' src={logo}></img> */}
 
     <div className='webTitle'><h1>SHERPA</h1></div>
         <div className='buttonContainer'>
@@ -63,13 +67,15 @@ componentDidMount(){
                 {!user
                 ?
                 <button onClick={this.login} className='navButton'>Login</button>
-                    :
+                :
                 <button onClick={this.logout} className='navButton'>Log Out</button>}
 
                 <button className='navButton'><Link to='/googlemaps'>Search the map</Link></button>
-                {/* {user ? */}
-                <button className='navButton'><Link to={/* user.profileFinished ?  */`/profile/${user.id}`/*  : '/profileCreate' */} >Profile</Link></button>
-                {/* // : this.notLoggedIn()} */}
+                {user ?
+                <button className='navButton'><Link to={`/profile/${user.id}`} >Profile</Link></button>
+                :  <button onClick={() => this.notLoggedIn()} className='navButton'> Profile</button>
+            }
+                
             {/* </div> */}
         </div>
     </div></div>
@@ -79,7 +85,8 @@ componentDidMount(){
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        profile: state.profile
     }
 }
 

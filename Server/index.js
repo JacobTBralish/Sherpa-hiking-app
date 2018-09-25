@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
+const cloudinary = require('cloudinary');
 const bodyParser = require('body-parser');
 const massive = require('massive');
 const pC = require('./profile_controller');
+const tC = require('./trail_controller');
 // const aC = require('./auth_controller');
 const axios = require('axios');
 
@@ -87,13 +89,32 @@ app.get('/auth/callback', (req,res) => {
 
 
 app.get('/api/user-data', (req,res) => {
-  res.json(req.session.user)
+    res.json(req.session.user)
 })
 
 app.post('/api/logout', (req, res) => {
-  req.session.destroy();
-  res.json();
+    req.session.destroy();
+    res.json();
 })
+
+app.get('/api/upload', (req, res) => {
+
+    // get a timestamp in seconds which is UNIX format
+        const timestamp = Math.round((new Date()).getTime() / 1000);
+    
+    // cloudinary API secret stored in the .env file
+        const api_secret  = process.env.CLOUDINARY_SECRET_API;
+    
+    // user built in cloudinary api sign request function to  create hashed signature with your api secret and UNIX timestamp
+        const signature = cloudinary.utils.api_sign_request({ timestamp: timestamp }, api_secret);
+    
+    // make a signature object to send to your react app
+        const payload = {
+            signature: signature,
+            timestamp: timestamp
+        };
+            res.json(payload);
+    })
 
 
 //------------------------------------------------------------------------------Profile Controller------------------------------------------------------------------\\
@@ -102,11 +123,10 @@ app.get('/api/profile/:id', pC.getProfile);
 app.put('/api/profile/:id', pC.editProfile);
 app.post('/api/profile', pC.postProfile);
 
-app.post('/api/profile:id', pC.profileCreated);
-
-
 //------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
 
+app.get('/api/trailreview/:id', tC.getTrailReviewById);
+app.post('/api/trailreview', tC.postReview);
 
 
 

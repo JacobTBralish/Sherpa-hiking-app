@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { connect } from 'react-redux';
-import { postProfile, profileFinished } from '../../Redux/reducer'
-import { Link } from 'react-router-dom';
+import { postProfile } from '../../Redux/reducer'
 import Dropzone from 'react-dropzone';
 import './CreateProfile.css';
-const request = require('superagent');
+import Axios from 'axios';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/jacob-development/image/upload';
 
 class CreateProfile extends Component {
     constructor() {
@@ -21,21 +21,30 @@ class CreateProfile extends Component {
             experience: '',
         }
     }
-    onDrop(acceptedFiles, rejectedFiles) {
-        console.log('Accepted files: ', acceptedFiles[0].name);
-        let profilePic=this.state.profilePic;
-        if(profilePic.length < 1){
-          profilePic.push(acceptedFiles);
-          let picturePreview=[];
-          for(var i in profilePic){
-            picturePreview.push({profilePic})
-          }
-          this.setState({profilePic,picturePreview});
-        }
-        else{
-          alert("You can only upload one profile image!")
-        }
+
+
+     handleImageUpload = (file) => {
+         Axios.get('/api/upload').then(response => {
+             
+            let formData = new FormData();
+            formData.append('signature', response.data.signature)
+            formData.append('api_key', '626685399682776');
+            formData.append('timestamp', response.data.timestamp)
+            formData.append('file', file[0]);
+
+            axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => { console.log(response.data)
+                this.setState({
+                    profilePic: response.data.secure_url
+                })
+            })
+         })
      }
+
+
+    postProfileInfo = (id, profilePic, bio, city, profileState, firstName, lastName, experience) => {
+        this.props.postProfile( id, profilePic, bio, city, profileState, firstName, lastName, experience )
+        this.props.history.push(`/profile/${this.props.user.id}`)
+    }
 
     handleChange = (event) => {
         this.setState({
@@ -46,16 +55,19 @@ class CreateProfile extends Component {
     render() { 
         let { profilePic, bio, city, profileState, firstName, lastName, experience } = this.state;
         let { user } = this.props;
-        console.log(user.id, this.props.profile)
+        console.log(profilePic, this.props.profile)
+        
         return ( 
         <div>
             <body className='mainProfileContainer'>
                 <div className='profileContainer'>
                     <div className='dropzoneContainer'>
-                    <Dropzone value={profilePic} onDrop={(files) => this.onDrop(files)}>
+                    <Dropzone multiple={false}
+                    accept={'image/*'}
+                    onDrop={this.handleImageUpload}
+                    className='dropzone'>
                         <div>Drag and drop your profile picture here to upload</div>
                     </Dropzone>
-            {/* <button label="Print Files" primary={true} onClick={(event) => this.handleClick(event)}>Upload image</button> */}
                 </div>
                     <form className='profileinfoContainer'>
                         {/* <label>Profile URL</label>
@@ -77,8 +89,10 @@ class CreateProfile extends Component {
                             <option value='Master'>Master</option>
                         </select>
 
-                        <button onClick={() => {console.log(this.props.profile,'this is your profile pictures console.log'), postProfile( user.id ,profilePic, bio, city, profileState, firstName, lastName, experience )}}>Apply</button>
-                        <Link to={`/profile/${user.id}`}><button>Save Changes</button></Link>
+                        <button onClick={() => {
+                            this.postProfileInfo( user.id ,profilePic, bio, city, profileState, firstName, lastName, experience )
+                            }}>Save</button>
+                        {/* <Link to={`/profile/${user.id}`}><button>Save Changes</button></Link> */}
                     
                     </form>
                 </div>
@@ -90,13 +104,13 @@ class CreateProfile extends Component {
 
 const mapStateToProps = state => {
     return{
-        user: state.user
+        user: state.user,
     }
 }
 
 const mapDispatchToProps = {
     postProfile,
-    profileFinished
+    // profileFinished
 }
  
 export default connect(mapStateToProps,mapDispatchToProps)(CreateProfile);

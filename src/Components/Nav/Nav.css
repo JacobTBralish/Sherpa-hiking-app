@@ -1,57 +1,81 @@
 
 :root {
-    --mainColor: rgb(228, 115, 74);
+    --mainColor: rgb(204, 204, 204);
   }
 
 .logo {
-    align-content: flex-start;
+    /* align-content: center; */
     height: 80px;
     width: 80px;
 }
 
 .webTitle{
+    font-size: 25px;
     margin: 20px;
+    color: white;
   }
 
-.NavBack {
-    display: flex;
-    background: grey;
-    height: 80px;
-    width: 100vw;
-    flex-direction: row-reverse;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
-}
+  
+  .NavBack {
+      color: white;
+      position: absolute;
+      display: flex;
+      background: none;
+      height: 80px;
+      
+      width: 100vw;
+      flex-direction: row-reverse;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      z-index: 1;
+    }
+    
 a {
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-size: 15px;
     color: black;
     text-decoration: none;
 }
+    
+.userNameBox {
+    order: 3;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    align-content: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+    margin-right: 350px;
+    flex-direction: column;
+}
+
 
 .buttonContainer {
     display: flex;
     height: 80px;
     align-items: stretch;
-    /* padding: 20px; */
-    
 }
 
 .navButton {
     text-decoration: none;
     /* background: grey; */
-    border: 1px;
     border-color: darkgray;
-    color:black;
+    border: none;
     padding: 20px;
     background:
      linear-gradient(
-       to bottom, var(--mainColor) 0%,
-       var(--mainColor) 100%
+       to top, var(--mainColor) 100%,
+       var(--mainColor) 0%
      );
-    background-position: 0 100%;
+    background-position: 100% 0;
     background-repeat: repeat-x;
     background-size: 4px 0px;
     transition: background-size .4s;
-    
+    font-size: 15px;
+    letter-spacing: 2px;
+    font-weight: bold;
+
 
 }
 

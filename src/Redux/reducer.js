@@ -13,6 +13,7 @@ const initialState = {
     statesList: [],
     citiesList: [],
     trailsList: [],
+    trailReviews: [],
 
     latitude: '',
     longitude: '',
@@ -24,30 +25,26 @@ const initialState = {
     firstName: '',
     lastName: '',
     experience: '',
-    profileFinished: false
     
 }
 
 const LOGGED_IN = 'LOGGED_IN';
 const LOGGED_OUT = 'LOGGED_OUT';
+
 const CHOSEN_STATE = 'CHOSEN_STATE';
 const CHOSEN_CITY = 'CHOSEN_CITY';
 const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
+
 const GET_STATES = 'GET_STATES';
 const GET_CITIES = 'GET_CITIES';
 const GET_TRAILS = 'GET_TRAILS';
 const GET_TRAIL = 'GET_TRAIL';
+const GET_TRAIL_REVIEWS = 'GET_TRAIL_REVIEWS';
+
 const GET_PROFILE = 'GET_PROFILE';
 const POST_PROFILE = 'POST_PROFILE';
 const EDIT_PROFILE = 'EDIT_PROFILE';
-const POST_PROFILE_PIC = 'POST_PROFILE_PIC';
-const POST_BIO = 'POST_BIO';
-const POST_CITY = 'POST_CITY';
-const POST_PROFILE_STATE = 'POST_PROFILE_STATE';
-const POST_FIRST_NAME = 'POST_FIRST_NAME';
-const POST_LAST_NAME = 'POST_LAST_NAME';
-const POST_EXPERIENCE = 'POST_EXPERIENCE';
-const PROFILE_FINISHED = 'PROFILE_FINISHED'
+
 
 export default function reducer (state = initialState, action){
     console.log(action.payload)
@@ -72,29 +69,17 @@ export default function reducer (state = initialState, action){
             return {...state, chosenTrail: action.payload}
         case CHOSEN_TRAIL:
             return {...state, trailId: action.payload}
+        case GET_TRAIL_REVIEWS:
+            return {...state, trailReviews: action.payload}
 
 
-        // case GET_PROFILE + `_FULFILLED`:
-        //     return {...state, profile: action.payload}
+        case GET_PROFILE:
+            return {...state, profile: action.payload}
         case POST_PROFILE + `_FULFILLED`:
             return {...state, profile: action.payload}
         case EDIT_PROFILE + `_FULFILLED`:
             return {...state, profile: action.payload}
-        case PROFILE_FINISHED + `_FULFILLED`:
-            return {...state, profileFinished: action.payload}
-        case POST_PROFILE_PIC:
-            return {...state, profilePic: action.payload}
-        case POST_BIO:
-            return {...state, bio: action.payload}
-        case POST_CITY:
-            return {...state, city: action.payload}
-        case POST_PROFILE_STATE:
-            return {...state, profileState: action.payload}
-        case POST_FIRST_NAME:
-            return {...state, firstName: action.payload}
-        case POST_LAST_NAME:
-            return {...state, lastName: action.payload}
-        case POST_EXPERIENCE:
+
             return {...state, experience: action.payload}
             
             
@@ -112,7 +97,7 @@ export function getStates(){
         
         type: GET_STATES,
         payload:  axios.get('https://raw.githubusercontent.com/JacobTBralish/list-of-states/master/states.json').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         return res.data 
      })
     }
@@ -129,7 +114,7 @@ return {
 }
 
 export function getTrails(trailsList){
-    console.log(trailsList)
+    // console.log(trailsList)
 return {
         type: GET_TRAILS,
         payload: trailsList
@@ -137,15 +122,23 @@ return {
 }
 
 export function getTrail(chosenTrail){
-    console.log(chosenTrail)
+    // console.log(chosenTrail)
 return {
         type: GET_TRAIL,
         payload: chosenTrail
     }
 }
 
+export function getTrailReviews(trailReviews){
+    // console.log(chosenTrail)
+return {
+        type: GET_TRAIL_REVIEWS,
+        payload: trailReviews
+    }
+}
+
 export function chooseTrail(trailId) {
-    console.log(trailId);
+    // console.log(trailId);
     return {
         type: CHOSEN_TRAIL,
         payload: trailId
@@ -190,127 +183,36 @@ export function logOut(){
 
 //----------------------------------------------------------------------PROFILE INFO--------------------------------------------------------------\\
 
-// export function getProfile(id){
-//     console.log('Get Profile')
-//     return {
-//         type: GET_PROFILE,
-//         payload: 
-//     }
-// }
+export function getProfile(profile){
+    return {
+        type: GET_PROFILE,
+        payload: profile
+    }
+}
 
 export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
     console.log(id, profilePic, bio, city, profileState, firstName, lastName, experience)
     return {
         type: POST_PROFILE,
         payload: axios.post(`/api/profile`, { id, profilePic, bio, city, profileState, firstName, lastName, experience }).then(response => {
-            console.log(response.data, 'Here is the profiles response.data')
+            // console.log(response.data, 'Here is the profiles response.data')
             return response.data;
         })
     }
 }
 
-
-//Redux Thunk used for async completion and redirect
-// export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
-//     let request = axios.post('/api/profile', [ id, profilePic, bio, city, profileState, firstName, lastName, experience ]);
-
-//     return {
-//         type: POST_PROFILE,
-//         payload: function(dispatch){
-//             request.then((response) => {
-//                 console.log('The profile has been created', response);
-//                 dispatch(push('/profile'));
-//             }).catch((error) => {
-//                 console.log(error, 'The profile was unable to be created');
-//                 dispatch(push('/profile'));
-//             })
-//         }
-        
-//     }
-// }
-
-export function profileFinished( id ){
-    return{
-        type: PROFILE_FINISHED,
-        payload: axios.post(`/api/profile/${ id }`).then(response => {
-            return response.data
-        })
-    }
-}
-
-export function editProfile(id, profilePic, bio, experience){
+export function editProfile(id, profilePic, bio, city, profileState, lastName, experience){
+    console.log(id, profilePic, bio, city, profileState, lastName, experience)
     return {
         type: POST_PROFILE,
-        payload: axios.put(`/api/profile/${ id }`, [profilePic, bio, experience]).then(response => {
+        payload: axios.put(`/api/profile/${ id }`, {profilePic, bio, city, profileState, lastName, experience}).then(response => {
+            console.log(response.data, "EDIT REDUCER METHOD")
             return response.data;
         })
     }
 }
 
-export function postProfilePic(profilePic) {
-    // console.log(item);
-    return {
-        type: POST_PROFILE_PIC,
-        payload: profilePic
-    }
-}
 
-export function postBio(bio) {
-    // console.log(item);
-    return {
-        type: POST_BIO,
-        payload: bio
-    }
-}
-export function postCity(city) {
-    // console.log(item);
-    return {
-        type: POST_CITY,
-        payload: city
-    }
-}
-export function postState(profileState) {
-    // console.log(item);
-    return {
-        type: POST_PROFILE_STATE,
-        payload: profileState
-    }
-}
-
-export function postFirstName(firstName) {
-    // console.log(item);
-    return {
-        type: POST_FIRST_NAME,
-        payload: firstName
-    }
-}
-
-export function postLastName(lastName) {
-    // console.log(item);
-    return {
-        type: POST_LAST_NAME,
-        payload: lastName
-    }
-}
-
-export function postExperience(experience) {
-    // console.log(item);
-    return {
-        type: POST_EXPERIENCE,
-        payload: experience
-    }
-}
-
-
-
-// export function chooseState(item) {
-//     console.log(item);
-    
-//     return {
-//         type: CHOSEN_STATE,
-//         payload: item
-//     }
-// }
 
 
 

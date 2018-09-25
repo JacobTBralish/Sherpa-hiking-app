@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getTrails, chooseTrail } from '../../Redux/reducer'
-import GoogleMap from '../GoogleMaps/GoogleMaps';
+// import GoogleMap from '../GoogleMaps/GoogleMaps';
 import Pagination from 'react-js-pagination';
 import { Link } from 'react-router-dom'
 
@@ -46,7 +46,7 @@ class Trails extends Component {
         }) : 'loading'
         return ( 
         <div>
-            <div><GoogleMap /></div>
+             {/* <div><GoogleMap /></div> */}
             <div>{mappedTrails}</div>
             <p></p>
             <div>
@@ -59,7 +59,7 @@ class Trails extends Component {
         />
             </div>
         
-        </div>
+        // </div>
          );
     }
 }

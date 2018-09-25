@@ -7,7 +7,7 @@ import City from './Components/SelectCity/city';
 import Trails from './Components/Trails/Trails';
 import Trail from './Components/Trails/Trail';
 // import Register from './Components/Register/Register';
-import GoogleMaps from './Components/GoogleMaps/GoogleMaps';
+// import GoogleMaps from './Components/GoogleMaps/GoogleMaps';
 import Profile from './Components/Profile/Profile';
 import CreateProfile from './Components/Profile/CreateProfile';
 import EditProfile from './Components/Profile/EditProfile';
@@ -23,7 +23,7 @@ export default (
         <Route path='/trails' component={Trails} />
         <Route path='/trail' component={Trail} />
         {/* <Route path='/register' component={Register} /> */}
-        <Route path='/googlemaps' component={GoogleMaps} />
+        {/* <Route path='/googlemaps' component={GoogleMaps} /> */}
         <Route path='/profile/:id' component={Profile} />
         <Route path='/profileCreate' component={CreateProfile} />
         <Route path='/profileEdit/:id' component={EditProfile} />

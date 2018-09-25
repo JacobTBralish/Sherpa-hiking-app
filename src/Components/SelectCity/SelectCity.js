@@ -3,6 +3,7 @@ import { getCities, chooseCity, chooseState } from '../../Redux/reducer';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 // import City from './city';
+import './SelectCity.css';
 
 
 class SelectCity extends Component {
@@ -43,15 +44,15 @@ class SelectCity extends Component {
             to={{ 
             pathname: '/trails', 
             state: { longitude:  city.coordinates.longitude, latitude: city.coordinates.latitude, trailId: city.coordinates.id} 
-          }}><h5>{city.name}</h5></Link>
+          }}><h5 className='cities'>{city.name}</h5></Link>
         }) : 'loading...';
         
       
        console.log(mappedCities)
 
         return ( 
-            <div>
-                <div>
+            <div className='main'>
+                <div className='cityContainer'>
                     {mappedCities}
                 </div>
                 
