@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { logIn, logOut  } from '../../Redux/reducer';
 import axios from 'axios';
 import { connect } from 'react-redux'
-import logo from '../../photos/edited-sherpa.png';
+// import logo from '../../photos/edited-sherpa.png';
 import './Nav.css';
 
 
@@ -47,7 +47,7 @@ componentDidMount(){
 
 
     render(){
-        const { user, profile, firstName } = this.props;
+        const { user, profile/* , firstName  */} = this.props;
 
         console.log(profile)
     return (

@@ -6,15 +6,15 @@ import './Home.css'
 class Home extends Component {
     state = {  }
     render() { 
-        let { user } = this.props;
+        let { user, profile } = this.props;
         return ( 
             <div className='mainContainer'>
                 <div className='homeContainer'>
                     <div >
                     {user 
                         ?<div  className='login-display'>
-                            <div>Name :{user.name}</div> 
-                            <div>Email :{user.email}</div> 
+                            <div>Welcome to Sherpa</div> 
+                            <div>{profile}</div> 
                             <div>
                         </div> 
             
@@ -32,7 +32,8 @@ class Home extends Component {
 
 const mapStateToProps= state => {
     return {
-        user:state.user
+        user:state.user,
+        profile: state.profile
     }
 }
  

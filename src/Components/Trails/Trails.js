@@ -22,6 +22,7 @@ class Trails extends Component {
             console.log(error, 'There was an error finding the trails requested.')
         })
     }
+    
 
     handlePageChange = (pageNumber) => {
         console.log(`active page is ${pageNumber}`);
@@ -33,7 +34,7 @@ class Trails extends Component {
         let { trailsList, chooseTrail } = this.props;
 
         let mappedTrails = trailsList ?  trailsList.map((trail, index) => {
-            return <Link onClick={() => chooseTrail(trail.id)} className='trailButton' to={{ pathname:`/trail`}} 
+            return <Link onClick={() => chooseTrail(trail.id)} className='trailButton' to={{ pathname:`/trail/${trail.id}`}} 
              key={index}><div>
              
             
@@ -59,7 +60,7 @@ class Trails extends Component {
         />
             </div>
         
-        // </div>
+         </div>
          );
     }
 }

@@ -12,12 +12,12 @@
 .webTitle{
     font-size: 25px;
     margin: 20px;
-    color: white;
+    color: black;
   }
 
   
   .NavBack {
-      color: white;
+      color: none;
       position: absolute;
       display: flex;
       background: none;
@@ -48,6 +48,7 @@ a {
     padding: 20px;
     margin-right: 350px;
     flex-direction: column;
+    color:black
 }
 
 

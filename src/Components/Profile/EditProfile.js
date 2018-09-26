@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { editProfile } from '../../Redux/reducer'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/jacob-development/image/upload';

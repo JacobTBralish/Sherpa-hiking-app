@@ -125,8 +125,9 @@ app.post('/api/profile', pC.postProfile);
 
 //------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
 
-app.get('/api/trailreview/:id', tC.getTrailReviewById);
-app.post('/api/trailreview', tC.postReview);
+app.get('/api/trail/:id', tC.getTrailReviewById);
+app.post('/api/trail/:trailId', tC.postReview);
+app.delete(`/api/trail/:id`, tC.deleteReview);
 
 
 

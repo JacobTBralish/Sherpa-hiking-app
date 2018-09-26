@@ -24,8 +24,7 @@ const initialState = {
     profileState: '',
     firstName: '',
     lastName: '',
-    experience: '',
-    
+    experience: '',    
 }
 
 const LOGGED_IN = 'LOGGED_IN';
@@ -39,7 +38,11 @@ const GET_STATES = 'GET_STATES';
 const GET_CITIES = 'GET_CITIES';
 const GET_TRAILS = 'GET_TRAILS';
 const GET_TRAIL = 'GET_TRAIL';
+const VISITED_TRAIL = 'VISITED_TRAIL';
+
 const GET_TRAIL_REVIEWS = 'GET_TRAIL_REVIEWS';
+const POST_TRAIL_REVIEWS = 'POST_TRAIL_REVIEWS';
+const DELETE_REVIEW = 'DELETE_REVIEW';
 
 const GET_PROFILE = 'GET_PROFILE';
 const POST_PROFILE = 'POST_PROFILE';
@@ -71,6 +74,14 @@ export default function reducer (state = initialState, action){
             return {...state, trailId: action.payload}
         case GET_TRAIL_REVIEWS:
             return {...state, trailReviews: action.payload}
+        case POST_TRAIL_REVIEWS:
+            return {...state, trailReviews: action.payload}
+        case DELETE_REVIEW:
+            return {...state, trailReviews: action.payload}
+        // case VISITED_TRAIL:
+        //     return {...state, visited: action.payload}
+
+
 
 
         case GET_PROFILE:
@@ -80,7 +91,7 @@ export default function reducer (state = initialState, action){
         case EDIT_PROFILE + `_FULFILLED`:
             return {...state, profile: action.payload}
 
-            return {...state, experience: action.payload}
+            // return {...state, experience: action.payload}
             
             
     //  case LOGGED_IN:
@@ -103,7 +114,7 @@ export function getStates(){
     }
 }
 
-export function getCities(citiesList){
+export function getCities(){
     // console.log(citiesList)
 return {
         type: GET_CITIES,
@@ -129,14 +140,6 @@ return {
     }
 }
 
-export function getTrailReviews(trailReviews){
-    // console.log(chosenTrail)
-return {
-        type: GET_TRAIL_REVIEWS,
-        payload: trailReviews
-    }
-}
-
 export function chooseTrail(trailId) {
     // console.log(trailId);
     return {
@@ -158,6 +161,37 @@ export function chooseCity(item) {
     return {
         type: CHOSEN_CITY,
         payload: item
+    }
+}
+
+export function getTrailReviews(trailReviews){
+    // console.log(chosenTrail)
+return {
+        type: GET_TRAIL_REVIEWS,
+        payload: trailReviews
+    }
+}
+
+export function postTrailReview(trailReviews){
+    // console.log(trailReviews)
+return {
+        type: POST_TRAIL_REVIEWS,
+        payload: trailReviews
+    }
+}
+
+export function deleteReview(trailReviews){
+    console.log(trailReviews)
+return {
+        type: DELETE_REVIEW,
+        payload: trailReviews
+    }
+}
+
+export function visitedTrail(visited){
+return {
+    type: VISITED_TRAIL,
+    payload: visited
     }
 }
 
@@ -191,7 +225,7 @@ export function getProfile(profile){
 }
 
 export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
-    console.log(id, profilePic, bio, city, profileState, firstName, lastName, experience)
+    // console.log(id, profilePic, bio, city, profileState, firstName, lastName, experience)
     return {
         type: POST_PROFILE,
         payload: axios.post(`/api/profile`, { id, profilePic, bio, city, profileState, firstName, lastName, experience }).then(response => {
@@ -202,7 +236,7 @@ export function postProfile(id, profilePic, bio, city, profileState, firstName, 
 }
 
 export function editProfile(id, profilePic, bio, city, profileState, lastName, experience){
-    console.log(id, profilePic, bio, city, profileState, lastName, experience)
+    // console.log(id, profilePic, bio, city, profileState, lastName, experience)
     return {
         type: POST_PROFILE,
         payload: axios.put(`/api/profile/${ id }`, {profilePic, bio, city, profileState, lastName, experience}).then(response => {

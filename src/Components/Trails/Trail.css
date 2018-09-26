@@ -4,6 +4,7 @@
     display: flex;
     align-content: center;
     justify-content: center;
+
 }
 
 .trailContainer {
@@ -11,6 +12,9 @@
     width: 80vw;
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
+
     /* align-content: center; */
     /* background: rgb(228, 115, 74); */
 
@@ -20,23 +24,93 @@
     display: flex;
     justify-content: center;
     margin: 50px;
-    align-items: center
+    align-items: center;
+
+    /* height: 1500px */
     
 }
 
 .trailImage {
-    width: 100%;
-    height: 80%;
+    max-width: 600px;
+    max-height: 600px;
+    width: auto;
+    height: auto;
 
 }
 
 .infoContainer {
     justify-content: center;
     display: flex;
-    margin: 50px;
+    max-width: 600px;
+    max-height: 600px;
+    min-width: 400px;
+    min-height: 400px;
+    /* margin: 20px; */
     flex-direction: column;
     text-align: left;
-    background: rgb(228, 115, 74);
+    background: rgb(204, 204, 204);
     padding: 20px;
-    align-content: center
+    align-content: center;
+}
+
+.infoContainer > h6 {
+    padding: 10px
+}
+
+.reviewFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.reviewForm {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    position: relative;
+    width: 60vw;
+    height: 30vh;
+    background: rgb(204, 204, 204);
+    margin: 4px;
+    flex-direction: column;
+    text-align: left
+}
+
+#reviewBody {
+    height:120px;
+    width: 400px;
+    margin: 3px;
+
+}
+
+#rating {
+    width:400px
+}
+
+.postButton {
+    height: 20px;
+    width: 85px;
+    justify-content: center;
+    align-self: center;
+}
+
+.displayedReviewsContainer {
+    display: flex;
+    justify-content: center;
+    background: rgb(204, 204, 204);
+    align-content: center;
+    margin: 4px;
+    width: 60vw;
+    position: relative;
+    height: auto;
+
+}
+
+.displayedReviews {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
 }
