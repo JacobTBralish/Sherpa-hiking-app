@@ -15,6 +15,8 @@ const initialState = {
     trailsList: [],
     trailReviews: [],
 
+    visited: [],
+
     latitude: '',
     longitude: '',
 
@@ -38,7 +40,9 @@ const GET_STATES = 'GET_STATES';
 const GET_CITIES = 'GET_CITIES';
 const GET_TRAILS = 'GET_TRAILS';
 const GET_TRAIL = 'GET_TRAIL';
-const VISITED_TRAIL = 'VISITED_TRAIL';
+
+const GET_VISITED_TRAIL = 'GET_VISITED_TRAIL';
+const POST_VISITED_TRAIL = 'POST_VISITED_TRAIL';
 
 const GET_TRAIL_REVIEWS = 'GET_TRAIL_REVIEWS';
 const POST_TRAIL_REVIEWS = 'POST_TRAIL_REVIEWS';
@@ -78,8 +82,11 @@ export default function reducer (state = initialState, action){
             return {...state, trailReviews: action.payload}
         case DELETE_REVIEW:
             return {...state, trailReviews: action.payload}
-        // case VISITED_TRAIL:
-        //     return {...state, visited: action.payload}
+
+        case GET_VISITED_TRAIL:
+            return {...state, visited: action.payload}
+        case POST_VISITED_TRAIL:
+            return {...state, visited: action.payload}
 
 
 
@@ -188,12 +195,34 @@ return {
     }
 }
 
-export function visitedTrail(visited){
+
+
+//----------------------------------------------------------------------VISITED--------------------------------------------------------------\\
+
+
+
+export function postVisitedTrail(visited){
 return {
-    type: VISITED_TRAIL,
+    type: POST_VISITED_TRAIL,
     payload: visited
     }
 }
+
+
+export function getVisitedTrails(visited){
+return {
+    type: GET_VISITED_TRAIL,
+    payload: visited
+    }
+}
+
+
+// export function visitedTrail(visited){
+// return {
+//     type: VISITED_TRAIL,
+//     payload: visited
+//     }
+// }
 
 
 //----------------------------------------------------------------------LOGIN--------------------------------------------------------------\\

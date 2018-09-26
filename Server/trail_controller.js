@@ -4,8 +4,6 @@ module.exports = {
     getTrailReviewById: ( req, res ) => {
         const db = req.app.get('db');
         let { id } = req.params;
-        // console.log(req.params)
-        // console.log(parseInt(id))
 
         db.get_trail_review( parseInt(id) ).then(trailReview => {
             console.log(trailReview);
@@ -16,25 +14,18 @@ module.exports = {
         })
     },
 
-
-    // INSERT INTO trail_reviews (review_trail_id, title, time, body, rating, author_id) VALUES
-    // ($1, $2, $3, $4, $5, $6);
-    // SELECT * FROM trail_reviews where review_trail_id = $1;
-
     postReview: (req, res) => {
 
 console.log('PostReview fired')
 
-        // console.log(req.params)
-        // console.log(req.body)
         const db = req.app.get('db');
         let { title, time, reviewBody, rating, userId } = req.body;
         let { trailId } = req.params;
 
 
         db.post_trail_review( { reviewTrailId: trailId, title, time, body: reviewBody, rating, authorId: userId }).then(review => {
-            // console.log(' post trail review console.log', review);
             res.status(200).json(review)
+
         }).catch(error => {
             res.status(500);
             console.log(error, 'Error in posting review');
@@ -42,7 +33,7 @@ console.log('PostReview fired')
     },
 
     deleteReview: (req,res) => {
-        console.log(req.query, req.params, '------------------------------------')
+        // console.log(req.query, req.params, '------------------------------------')
         const db = req.app.get('db');
         let { id } = req.params;
         let { reviewId } = req.query;
@@ -54,8 +45,33 @@ console.log('PostReview fired')
         })
     },
 
-    visited: (req, res) => {
+    getVisited: (req, res) => {
         const db = req.app.get('db')
-    }
+        let { trailId } = req.params;
+        let { userId } = req.body;
+
+        db.get_visited_trails( [ trailId, userId ] ).then(response => {
+            res.status(200).json(response)
+        }).catch(error => {
+            res.status(500).json(error);
+            console.log(error, 'Error in getting visited trails')
+        })
+    },
+
+    postVisited: (req, res) => {
+        const db = req.app.get('db');
+        let { id } = req.params;
+        let { userId } = req.body;
+        console.log(req.body);
+        console.log(req.params);
+
+        db.post_visited_trail( { userVisitedId: userId , visitedTrailId: id} ).then(response => {
+            console.log(response,'this is your visited post console.log ---------------')
+            res.status(200).json(response)
+        }).catch(error => {
+            res.status(500).json(error)
+            console.log(error, 'Error in posting visited')
+        })
+    },
 }
 

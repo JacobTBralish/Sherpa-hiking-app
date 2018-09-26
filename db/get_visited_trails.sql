@@ -1,2 +1,2 @@
 SELECT * FROM visited
-WHERE
+WHERE user_visited_id = $1;

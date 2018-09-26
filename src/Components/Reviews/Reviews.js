@@ -33,21 +33,17 @@ class Reviews extends Component {
     }
 
 
-//     handleRatingClick = (e, data) => {
 
-//     alert('You left a ' + data.rating + ' star rating for ' + data.caption);
-
-// }
 
 
     render() { 
         // console.log(this.props.match.params.id)
         const data = this.props.trailReviews.length > 0 ? this.props.trailReviews[0]: {}
 
-        console.log(data.id)
+        // console.log(data.id)
         
         let{ trailReviews } = this.props;
-        console.log(trailReviews)
+        // console.log(trailReviews)
 
         let mappedTrailReviews = trailReviews ? trailReviews.map((review, index) => {
             return (

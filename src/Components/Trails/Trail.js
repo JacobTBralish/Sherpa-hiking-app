@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getTrail, postTrailReview } from '../../Redux/reducer';
+import { getTrail, postTrailReview, postVisitedTrail } from '../../Redux/reducer';
 import { connect } from 'react-redux';
 import Reviews from '../Reviews/Reviews';
 // import { Link } from 'react-router-dom';
@@ -13,7 +13,9 @@ class Trail extends Component {
             toggleView: false,
             title: '',
             reviewBody: '',
-            rating: 0
+            rating: 0,
+            visitCount: 0,
+            visited: false
             
         }
     }
@@ -46,24 +48,43 @@ componentDidMount() {
     const date = new Date();
        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
        const time = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-       console.log('DATE',time)
-       console.log(title, time, reviewBody, rating, userId)
+    //    console.log('DATE',time)
+    //    console.log(title, time, reviewBody, rating, userId)
 
         axios.post(`/api/trail/${this.props.match.params.id}`, { title, time, reviewBody, rating, userId} ).then(response => {
-            console.log( response.data )
+            // console.log( response.data )
             this.props.postTrailReview(response.data);
         }).catch(error => {
             console.log(error, 'Error with posting your review')
         })
-}
+    }
+
+
+    handleCount(visited, visitCount){
+        if (visited === false){
+            this.setState({visitCount})
+        }else {
+            this.setState({visitCount: + 1})
+        }
+        // visited === true ? visitCount + 1 : visitCount
+    }
 
     handleVist(userId){
-        axios.post(`/api/trail/${this.props.match.params.id}`, userId).then(response => {
-            this.props.visitedTrail(response.data);
+        // console.log(userId)
+        axios.post(`/api/visitedtrail/${this.props.match.params.id}`, {userId}).then(response => {
+            // console.log(response.data)
+            
+            this.props.postVisitedTrail(response.data);
         }).catch(error => {
             console.log(error, 'Error with posting your review')
         })
     }
+
+    setToVisited(userId, visited, visitCount){
+        this.handleVist(userId);
+        this.handleCount(visited, visitCount);
+    }
+
 
 
     render() { 
@@ -76,7 +97,7 @@ componentDidMount() {
 
         console.log('this.props', this.props)
         let { chosenTrail, user } = this.props;
-        let { title, rating, reviewBody} = this.state;
+        let { title, rating, reviewBody, visitCount } = this.state;
 
         let showTrail = chosenTrail ? chosenTrail.map((trail, index) => {
            return (
@@ -95,7 +116,7 @@ componentDidMount() {
                         <h6>Latitude: {trail.latitude}</h6>
                         <h6>Longitude: {trail.longitude}</h6>
                         <h6>Description: {trail.summary}</h6>
-                        <button onClick={() => {this.handleVist(trail.id)}}>Visited</button>
+                        <div><button onClick={() => {this.setToVisited(user.id)}}>Visited</button> {visitCount === 1 ? `1 person has been to ${trail.name}!` : `${visitCount} people have been to ${trail.name}!`}</div>
                     </div>
                 </div>
             </div>
@@ -155,7 +176,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getTrail,
-
+    postVisitedTrail,
     postTrailReview
 
 }

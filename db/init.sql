@@ -48,11 +48,11 @@ CREATE TABLE trail_reviews (
     ,author_id INTEGER REFERENCES sherpa_users(id) NOT NULL
 );
 
-CREATE TABLE suggested_items (
-    id SERIAL PRIMARY KEY NOT NULL
-    ,trail INTEGER references sherpa_trails(id) NOT NULL
-    ,content text
-);
+-- CREATE TABLE suggested_items (
+--     id SERIAL PRIMARY KEY NOT NULL
+--     ,trail INTEGER references sherpa_trails(id) NOT NULL
+--     ,content text
+-- );
 
 CREATE TABLE visited (
     id SERIAL PRIMARY KEY

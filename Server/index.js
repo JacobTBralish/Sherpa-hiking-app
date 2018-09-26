@@ -129,6 +129,10 @@ app.get('/api/trail/:id', tC.getTrailReviewById);
 app.post('/api/trail/:trailId', tC.postReview);
 app.delete(`/api/trail/:id`, tC.deleteReview);
 
+//------------------------------------------------------------------------------Trail Visited Controller------------------------------------------------------------------\\
+
+app.get('/api/visitedtrail/:id', tC.getVisited);
+app.post('/api/visitedtrail/:id', tC.postVisited);
 
 
 //----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
