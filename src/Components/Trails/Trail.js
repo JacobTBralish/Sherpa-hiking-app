@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getTrail, postTrailReview, postVisitedTrail } from '../../Redux/reducer';
+import { getTrail, postTrailReview, postVisitedTrail, getVisitedTrails } from '../../Redux/reducer';
 import { connect } from 'react-redux';
 import Reviews from '../Reviews/Reviews';
 // import { Link } from 'react-router-dom';
@@ -20,6 +20,8 @@ class Trail extends Component {
         }
     }
 
+
+
 componentDidMount() {
     axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${this.props.match.params.id}&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then(res => {
         this.props.getTrail(res.data.trails);
@@ -28,7 +30,17 @@ componentDidMount() {
         console.log(error, 'Error getting trail.')
     })
 
+  
+//     axios.get(`/api/visitedtrail/${this.props.match.params.id}`).then(response => {
+//       console.log('COMPONENTDIDMOUNT',response.data)
+//       this.props.getVisitedTrails(response.data)
+//       this.setState({visitCount:response.data.visitCount})
+//   }).catch(error => {
+//       console.log(error, 'Error getting visited trail.')
+//   })
+
     }
+
 
 
     handleChange = (event) => {
@@ -60,30 +72,32 @@ componentDidMount() {
     }
 
 
+    // IS THIS NEEDED ANYMORE?
     handleCount(visited, visitCount){
         if (visited === false){
-            this.setState({visitCount})
+            this.setState({visitCount:this.state.visitCount})
         }else {
-            this.setState({visitCount: + 1})
+            this.setState({visitCount:this.state.visitCount + 1})
         }
-        // visited === true ? visitCount + 1 : visitCount
     }
 
-    handleVist(userId){
+    //CAN I INCREMENT INSIDE OF THIS?
+    handleVist(userId, visitCount, visited){
         // console.log(userId)
-        axios.post(`/api/visitedtrail/${this.props.match.params.id}`, {userId}).then(response => {
+        axios.post(`/api/visitedtrail/${this.props.match.params.id}`, {userId, visitCount}).then(response => {
             // console.log(response.data)
-            
+            this.handleCount(visited);
+
             this.props.postVisitedTrail(response.data);
         }).catch(error => {
             console.log(error, 'Error with posting your review')
         })
     }
 
-    setToVisited(userId, visited, visitCount){
-        this.handleVist(userId);
-        this.handleCount(visited, visitCount);
-    }
+    // setToVisited(userId, visited, visitCount){
+    //     this.handleVist(userId, visitCount);
+    //     this.handleCount(visited);
+    // }
 
 
 
@@ -95,7 +109,7 @@ componentDidMount() {
 
         console.log(data)
 
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         let { chosenTrail, user } = this.props;
         let { title, rating, reviewBody, visitCount } = this.state;
 
@@ -116,7 +130,7 @@ componentDidMount() {
                         <h6>Latitude: {trail.latitude}</h6>
                         <h6>Longitude: {trail.longitude}</h6>
                         <h6>Description: {trail.summary}</h6>
-                        <div><button onClick={() => {this.setToVisited(user.id)}}>Visited</button> {visitCount === 1 ? `1 person has been to ${trail.name}!` : `${visitCount} people have been to ${trail.name}!`}</div>
+                        <div><button onClick={() => {this.handleVist(user.id, visitCount)}}>Visited</button> {visitCount === 1 ? `1 person has been to ${trail.name}!` : `${visitCount} people have been to ${trail.name}!`}</div>
                     </div>
                 </div>
             </div>
@@ -155,6 +169,7 @@ componentDidMount() {
 
                    <Reviews className="displayedReviews" trailId={this.props.trailId} />
                    
+                   
                
                    </div>
                    
@@ -177,7 +192,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     getTrail,
     postVisitedTrail,
-    postTrailReview
+    postTrailReview,
+    getVisitedTrails
 
 }
  

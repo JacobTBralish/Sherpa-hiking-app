@@ -58,4 +58,5 @@ CREATE TABLE visited (
     id SERIAL PRIMARY KEY
     ,user_visited_id INTEGER references sherpa_users(id) NOT NULL
     ,visited_trail_id INTEGER NOT NULL
+    ,visit_count SERIAL
 );

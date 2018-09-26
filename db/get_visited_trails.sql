@@ -1,2 +1,2 @@
 SELECT * FROM visited
-WHERE user_visited_id = $1;
+WHERE visited_trail_id = $1;

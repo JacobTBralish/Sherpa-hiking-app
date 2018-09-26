@@ -134,7 +134,6 @@ app.delete(`/api/trail/:id`, tC.deleteReview);
 app.get('/api/visitedtrail/:id', tC.getVisited);
 app.post('/api/visitedtrail/:id', tC.postVisited);
 
-
 //----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
 
 

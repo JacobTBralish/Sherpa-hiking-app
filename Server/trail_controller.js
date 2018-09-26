@@ -61,11 +61,11 @@ console.log('PostReview fired')
     postVisited: (req, res) => {
         const db = req.app.get('db');
         let { id } = req.params;
-        let { userId } = req.body;
-        console.log(req.body);
-        console.log(req.params);
+        let { userId, visitCount } = req.body;
+        // console.log(req.body);
+        // console.log(req.params);
 
-        db.post_visited_trail( { userVisitedId: userId , visitedTrailId: id} ).then(response => {
+        db.post_visited_trail( { userVisitedId: userId , visitedTrailId: id, visitCount} ).then(response => {
             console.log(response,'this is your visited post console.log ---------------')
             res.status(200).json(response)
         }).catch(error => {
