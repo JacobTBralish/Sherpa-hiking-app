@@ -2,7 +2,7 @@ import axios from 'axios';
 // import { push } from 'react-router-redux';
 
 const initialState = {
-    user: {},
+    user: [],
     profile: [],
 
     chosenState:'',

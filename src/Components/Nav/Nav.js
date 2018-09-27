@@ -53,7 +53,7 @@ componentDidMount(){
     return (
         <div>
     <div className='NavBack'>
-                <div className='userNameBox'>{!user ? '' : `Hello ${user.name}!` }</div>
+                <div className='userNameBox'>{user && user.profileFinished ? `Hello ${user.name}!` : '' }</div>
     {/* <img className='logo' src={logo}></img> */}
 
     <div className='webTitle'><h1>SHERPA</h1></div>
@@ -70,7 +70,7 @@ componentDidMount(){
                 :
                 <button onClick={this.logout} className='navButton'>Log Out</button>}
 
-                <button className='navButton'><Link to='/googlemaps'>Search the map</Link></button>
+                {/* <button className='navButton'><Link to='/googlemaps'>Search the map</Link></button> */}
                 {user ?
                 <button className='navButton'><Link to={`/profile/${user.id}`} >Profile</Link></button>
                 :  <button onClick={() => this.notLoggedIn()} className='navButton'> Profile</button>

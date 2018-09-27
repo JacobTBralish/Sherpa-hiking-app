@@ -19,8 +19,7 @@ class Trail extends Component {
             
         }
     }
-
-
+    
 
 componentDidMount() {
     axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${this.props.match.params.id}&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then(res => {
@@ -113,6 +112,8 @@ componentDidMount() {
         let { chosenTrail, user } = this.props;
         let { title, rating, reviewBody, visitCount } = this.state;
 
+        // console.log(user.profileFinished)
+
         let showTrail = chosenTrail ? chosenTrail.map((trail, index) => {
            return (
             <div key={index} className='mainContainer'>
@@ -162,8 +163,12 @@ componentDidMount() {
                     </select>
                     <label>Review: </label>
                     <input id='reviewBody' className='reviewInput' onChange={this.handleChange}></input>
-                    
+
+                    {user && user.profileFinished ?
                     <button className='postButton'  onClick={() => {this.handlePost( title, reviewBody, rating, user.id )}}>Post Review</button>
+                    :
+                    <button className='postButton'  onClick={() => {alert('You are not logged in! Please log in or create an account to post a review.')}}>Post Review</button>
+                    }
                 </form>
                <div className='displayedReviewsContainer'>
 

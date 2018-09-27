@@ -13,7 +13,7 @@ class Profile extends Component {
 
 componentDidMount() {
     // this.props.getProfile(this.props.match.params.id);
-    axios.get(`/api/profile/${this.props.match.params.id}`).then(response => {/* console.log(response.data) */
+    axios.get(`/api/profile/${this.props.match.params.id}`).then(response => { console.log(response.data)
         return this.props.getProfile(response.data)
     }).catch(error => {
             console.log(error, 'There was an error accessing your profile.')
@@ -34,8 +34,10 @@ componentDidMount() {
                         <img id='profilePic' src={item.profilepic} alt={item.first_name}></img>
                     <div className='profileInfo'>
                         <h2 id='name'>{item.first_name} {item.last_name}</h2>
-                        <p>Location: {item.city}, {item.state}</p>
-                        <p>About {item.first_name}:{item.bio}</p>
+                        <h4>Location:</h4>
+                        <p>{item.city}, {item.state}</p>
+                        <h4>About {item.first_name}:</h4>
+                        <p>{item.bio}</p>
                         <p>Experience with hiking: {item.experience}</p>
                     </div>
                     </div>

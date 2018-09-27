@@ -60,3 +60,10 @@ CREATE TABLE visited (
     ,visited_trail_id INTEGER NOT NULL
     ,visit_count SERIAL
 );
+
+
+
+-- select *
+-- from trail_reviews tr
+-- join sherpa_profile sp
+-- on tr.author_id = sp.profile_id;
