@@ -13,7 +13,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
     position: relative;
+    padding-top: 40%;
+    height: 40%;
 
     /* align-content: center; */
     /* background: rgb(228, 115, 74); */

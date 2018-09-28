@@ -138,10 +138,10 @@ app.post('/api/visitedtrail/:id', tC.postVisited);
 //----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
 
 
-const path = require('path')
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-})
+// const path = require('path')
+// app.get('*', (req, res)=>{
+//   res.sendFile(path.join(__dirname, '../build/index.html'));
+// })
 
 const PORT = 4000;
 app.listen(PORT, () => {

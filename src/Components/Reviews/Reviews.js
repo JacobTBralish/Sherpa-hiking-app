@@ -14,7 +14,7 @@ class Reviews extends Component {
     componentDidMount() {/* console.log(this.props) */
         axios.get(`/api/trail/${this.props.trailId}`).then(res => {
             this.props.getTrailReviews(res.data);
-            // console.log(res.data)
+            console.log('res.data: ', res.data);
         }).catch(error => {
         console.log(error, 'Error getting trail.')
     })
@@ -25,7 +25,6 @@ class Reviews extends Component {
     handleDelete(reviewId){
         console.log(reviewId)
         axios.delete(`/api/trail/${this.props.match.params.id}?reviewId=${reviewId}`).then((response) => {
-            console.log('stupid')
             this.props.deleteReview(response.data)
         }).catch(error => {
                  console.log(error, 'Error on the front end delete')

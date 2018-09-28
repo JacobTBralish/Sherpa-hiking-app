@@ -170,10 +170,10 @@ componentDidMount() {
                     <label>Review: </label>
                     <input id='reviewBody' className='reviewInput' onChange={this.handleChange}></input>
 
-                    {user && user.profileFinished ?
+                    {/* {user && user.profileFinished ? */}
                     <button className='postButton'  onClick={() => {this.handlePost( title, reviewBody, rating, user.id )}}>Post Review</button>
-                    :
-                    <button className='postButton'  onClick={() => {alert('You are not logged in! Please log in or create an account to post a review.')}}>Post Review</button>
+                    {/* : */}
+                    {/* // <button className='postButton'  onClick={() => {alert('You are not logged in! Please log in or create an account to post a review.')}}>Post Review</button> */}
                     }
                 </form>
                <div className='displayedReviewsContainer'>
