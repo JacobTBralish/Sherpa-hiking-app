@@ -49,7 +49,6 @@ componentDidMount(){
     render(){
         const { user, profile/* , firstName  */} = this.props;
 
-        console.log(profile)
     return (
         <div>
     <div className='NavBack'>
@@ -59,21 +58,21 @@ componentDidMount(){
     <div className='webTitle'><h1>SHERPA</h1></div>
         <div className='buttonContainer'>
             {/* <div className='Navbar'> */}
-                <button className='navButton'><Link to='/'  >Home</Link></button>
+                <button id='homeButton' className='navButton'><Link to='/'  >Home</Link></button>
             
-                <button className='navButton'><Link to='/selectstate' >Find Trails</Link></button>
+                <button className='navButton' id='findTrailsButton'><Link to='/selectstate' >Find Trails</Link></button>
 
                 {/*---------------------- fix ternary -------------------------*/}
                 {!user
                 ?
-                <button onClick={this.login} className='navButton'>Login</button>
+                <button onClick={this.login} id='authButton' className='navButton'>Login</button>
                 :
-                <button onClick={this.logout} className='navButton'>Log Out</button>}
+                <button onClick={this.logout} id='authButton' className='navButton'>Log Out</button>}
 
                 {/* <button className='navButton'><Link to='/googlemaps'>Search the map</Link></button> */}
                 {user ?
-                <button className='navButton'><Link to={`/profile/${user.id}`} >Profile</Link></button>
-                :  <button onClick={() => this.notLoggedIn()} className='navButton'> Profile</button>
+                <button id='profileButton' className='navButton'><Link to={`/profile/${user.id}`} >Profile</Link></button>
+                :  <button id='profileButton' onClick={() => this.notLoggedIn()} className='navButton'> Profile</button>
             }
                 
             {/* </div> */}

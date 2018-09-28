@@ -28,7 +28,6 @@ class SelectCity extends Component {
         }
         if(mappedCities){
             return Object.keys(mappedCities).map((cityName, index) => {
-                console.log(cityName)
                 return {name: cityName, coordinates: {latitude: mappedCities[cityName].latitude, longitude: mappedCities[cityName].longitude}}
             })
         }
@@ -47,9 +46,6 @@ class SelectCity extends Component {
           }}><h5 className='cities'>{city.name}</h5></Link>
         }) : 'loading...';
         
-      
-       console.log(mappedCities)
-
         return ( 
             <div className='main'>
                 <div className='cityContainer'>

@@ -13,8 +13,8 @@ class Home extends Component {
                     <div >
                     {user 
                         ?<div  className='login-display'>
-                            <div>Welcome to Sherpa</div> 
-                            <div>{profile}</div> 
+                            <div id='welcomeText'>Welcome to Sherpa {user.name}</div> 
+                            <div> </div> 
                             <div>
                         </div> 
             
@@ -22,6 +22,7 @@ class Home extends Component {
                 } 
                         <div className='imgContainer' >
                             <img id='homeImage' alt='Sherpa Hiking' src={mainImage}></img>
+                            <div className='overlay'></div>
                         </div>
                     </div>
                 </div>

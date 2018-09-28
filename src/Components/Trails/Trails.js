@@ -19,7 +19,6 @@ class Trails extends Component {
 
     componentDidMount() {
         axios.get(`https://www.hikingproject.com/data/get-trails?lat=${this.props.location.state.latitude}&lon=${this.props.location.state.longitude}&maxDistance=150&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then((res)=> {
-            console.log(res.data)
         this.props.getTrails(res.data.trails)
             }).catch(error => {
              console.log(error, 'There was an error finding the trails requested.')
@@ -40,7 +39,6 @@ class Trails extends Component {
           
           
           let { trailsList, chooseTrail } = this.props;
-          console.log(trailsList)
 
           //FOR PAGINATION
           let activePageIndex = parseInt(this.state.activePage, 10);

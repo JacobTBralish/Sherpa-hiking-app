@@ -13,6 +13,8 @@
     font-size: 25px;
     margin: 20px;
     color: black;
+    -webkit-animation: fadein 3s; 
+
   }
 
   
@@ -83,3 +85,33 @@ a {
 .navButton:hover {
     background-size: 4px 90px;
   }
+
+  #profileButton {
+    font-size: 15px;
+
+    -webkit-animation: fadein 4s; 
+  }
+  
+
+  #authButton {
+    font-size: 15px;
+
+    -webkit-animation: fadein 5s; 
+  }
+
+  #findTrailsButton {
+    font-size: 15px;
+
+    -webkit-animation: fadein 6s; 
+  }
+
+  #homeButton {
+    font-size: 15px;
+
+    -webkit-animation: fadein 7s; 
+  }
+
+  @-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

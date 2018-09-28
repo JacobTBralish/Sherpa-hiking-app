@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getTrail, postTrailReview, postVisitedTrail, getVisitedTrails } from '../../Redux/reducer';
 import { connect } from 'react-redux';
 import Reviews from '../Reviews/Reviews';
+import Weather from '../Weather/Weather';
 // import { Link } from 'react-router-dom';
 import './Trail.css';
 
@@ -106,7 +107,7 @@ componentDidMount() {
         }
         const data = this.props.chosenTrail.length > 0 ? this.props.chosenTrail[0]: {}
 
-        console.log(data)
+        // console.log(data)
 
         // console.log('this.props', this.props)
         let { chosenTrail, user } = this.props;
@@ -139,10 +140,15 @@ componentDidMount() {
         }) : 'Loading...'
 
         // let mapped
+
+      
         return ( 
             <div>
-               <div>{showTrail}</div>
-               <div className='reviewFormContainer'>              
+            <div>{showTrail}</div>
+            <div className='weather'>
+            {chosenTrail.length ? <Weather  /> : ''}
+            </div>
+            <div className='reviewFormContainer'>                         
                     <form className='reviewForm'>
                         <label>Title: </label>
                         <div>
