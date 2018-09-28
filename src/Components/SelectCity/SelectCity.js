@@ -44,7 +44,17 @@ class SelectCity extends Component {
             pathname: '/trails', 
             state: { longitude:  city.coordinates.longitude, latitude: city.coordinates.latitude, trailId: city.coordinates.id} 
           }}><h5 className='cities'>{city.name}</h5></Link>
-        }) : 'loading...';
+        }) : <div className='loader'>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+                <div className='cube'></div>
+            </div>;
         
         return ( 
             <div className='main'>
