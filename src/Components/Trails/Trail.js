@@ -128,7 +128,7 @@ componentDidMount() {
                         <h6>Length: {trail.length} miles</h6>
                         <h6>Starting elevation: {trail.low}</h6>
                         <h6>Highest elevation: {trail.high}</h6>
-                        <h6>acent: {trail.acent}</h6>
+                        <h6>acent: {trail.high - trail.low}</h6>
                         <h6>Latitude: {trail.latitude}</h6>
                         <h6>Longitude: {trail.longitude}</h6>
                         <h6>Description: {trail.summary}</h6>

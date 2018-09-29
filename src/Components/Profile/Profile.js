@@ -52,9 +52,9 @@ componentDidMount() {
                         <div>{mappedProfile}</div> 
                 </div> : <div> </div>}
                 { user && !user.profileFinished ?
-                <Link to={`/profileEdit/${ user.id }`}><button>Edit Profile</button></Link>
-                :
                 <Link to={`/profileCreate`}><button>Create Profile</button></Link>
+                :
+                <Link to={`/profileEdit/${ user.id }`}><button>Edit Profile</button></Link>
             }
             </div>
             </div>

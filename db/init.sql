@@ -19,6 +19,21 @@ CREATE TABLE sherpa_profile (
     ,experience VARCHAR(10)
 );
 
+CREATE TABLE trail_reviews (
+    id SERIAL PRIMARY KEY
+    ,review_trail_id INTEGER NOT NULL
+    ,title VARCHAR(50) NOT NULL
+    ,time TEXT NOT NULL
+    ,body TEXT NOT NULL
+    ,rating DECIMAL NOT NULL
+    ,author_id INTEGER REFERENCES sherpa_users(id) NOT NULL
+);
+
+select *
+from trail_reviews tr
+join sherpa_users su
+on tr.author_id = su.id;
+where tr.author_id = su.id;
 
 -- CREATE TABLE sherpa_trails (
 --     id SERIAL PRIMARY KEY NOT NULL
@@ -38,15 +53,6 @@ CREATE TABLE sherpa_profile (
 --     ,latitude DECIMAL NOT NULL
 -- );
 
-CREATE TABLE trail_reviews (
-    id SERIAL PRIMARY KEY
-    ,review_trail_id INTEGER NOT NULL
-    ,title VARCHAR(50) NOT NULL
-    ,time TEXT NOT NULL
-    ,body TEXT NOT NULL
-    ,rating DECIMAL NOT NULL
-    ,author_id INTEGER REFERENCES sherpa_users(id) NOT NULL
-);
 
 -- CREATE TABLE suggested_items (
 --     id SERIAL PRIMARY KEY NOT NULL

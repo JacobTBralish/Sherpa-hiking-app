@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux'
+import './Weather.css';
 let moment = require('moment');
 
 
@@ -71,7 +72,7 @@ findWeatherInfoByDay = (arr, cb) => {
       let dateString = moment(cb(arr[i].dt_txt)).format('MMMM Do YYYY')
     //   console.log(dateString)
       if(dates.some(e => e.day === dateString)){
-        dates[dates.findIndex(e => e.day === dateString)].hour.push(    {minTemp: Math.floor(arr[i].main.temp_min), 
+        dates[dates.findIndex(e => e.day === dateString)].hour.push({minTemp: Math.floor(arr[i].main.temp_min), 
           maxTemp: Math.floor(arr[i].main.temp_max), 
           description: arr[i].weather[0].description, 
           icon: arr[i].weather[0].icon })
@@ -105,16 +106,16 @@ findWeatherInfoByDay = (arr, cb) => {
             console.log('day.hour', day)
                 let mappedDay = day.hour.map((info) => {
                     // console.log('====', info)
-                    return<div>
-                            <div>{info.minTemp}</div>
-                            <div>{info.maxTemp}</div>
-                            <div>{info.description}</div>
-                            <div>{info.icon}</div>
+                    return<div className='weatherInfoBox'>
+                            <img src={`http://openweathermap.org/img/w/${info.icon}.png`}></img>
+                            <div id='weatherText'>High: {info.maxTemp}°F</div>
+                            <div id='weatherText'>Low: {info.minTemp}°F</div>
+                            <div id='weatherText'>{info.description}</div>
                         </div>
                 })
-                return <div key={index}>
-                <div>{day.day}</div>
-                {mappedDay}
+                return <div className='weatherMain' key={index}>
+                <h5 id='weatherText'>{day.day}</h5>
+                <div>{mappedDay}</div>
             </div>
         }) : 'loading...'
 
@@ -139,10 +140,10 @@ findWeatherInfoByDay = (arr, cb) => {
 
 
     return ( 
-        <div>
-
+        <div >
+        <div className='weatherContainer'>
             {mappedWeather}
-            Weather
+        </div>
         </div>
         );
         }
