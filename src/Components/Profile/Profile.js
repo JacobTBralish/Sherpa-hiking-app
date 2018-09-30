@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { getProfile } from '../../Redux/reducer';
+import Reviews from './UsersReviews';
 import './Profile.css';
 
 
@@ -12,20 +13,17 @@ class Profile extends Component {
      }
 
 componentDidMount() {
-    // this.props.getProfile(this.props.match.params.id);
-    axios.get(`/api/profile/${this.props.match.params.id}`).then(response => { console.log(response.data)
-        return this.props.getProfile(response.data)
-    }).catch(error => {
-            console.log(error, 'There was an error accessing your profile.')
-        })
+    setTimeout(() => this.props.getProfile(this.props.match.params.id),1000);
+
 }
     
 
 
     render() { 
         let { user, profile } = this.props;
+        // const profileInfo = profile.length > 0 ? profile[0]: {}
 
-        console.log(profile)
+        console.log('This is data')
         let mappedProfile = profile ? profile.map((item, index) => {
             console.log(item)
             return <div key={index}>
@@ -39,6 +37,12 @@ componentDidMount() {
                         <h4>About {item.first_name}:</h4>
                         <p>{item.bio}</p>
                         <p>Experience with hiking: {item.experience}</p>
+                        <div className='editButtonAnimation'> 
+                                <Link className='editButton' to={`/profileEdit/${ this.props.match.params.id }`}><i className="far fa-edit"></i></Link>
+                        </div>
+                            
+                    
+                      
                     </div>
                     </div>
                 </div>
@@ -50,12 +54,12 @@ componentDidMount() {
                 {user
                     ?<div>
                         <div>{mappedProfile}</div> 
-                </div> : <div> </div>}
-                { user && !user.profileFinished ?
-                <Link to={`/profileCreate`}><button>Create Profile</button></Link>
-                :
-                <Link to={`/profileEdit/${ user.id }`}><button>Edit Profile</button></Link>
-            }
+                </div> : ''}
+
+                    <Link to={`/profileCreate/${ this.props.match.params.id }`}><button>Create Profile</button></Link>
+            </div>
+            <div className='usersReviewsContainer'>
+                {user.length ? <Reviews /> : ''}
             </div>
             </div>
          );

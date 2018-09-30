@@ -53,14 +53,18 @@ class CreateProfile extends Component {
     }
 
     render() { 
+
         let { profilePic, bio, city, profileState, firstName, lastName, experience } = this.state;
         let { user } = this.props;
+        const data = this.props.user.length > 0 ? this.props.user[0]: {}
+        console.log('user: ', user);
         console.log(profilePic, this.props.profile)
         
         return ( 
-        <div>
-            <body className='mainProfileContainer'>
-                <div className='profileContainer'>
+        <div className='mainCreateContainer'>
+            {/* <body className='mainContainer'> */}
+                <div className='personalCreateContainer'>
+                    <form className='createProfileInfoContainer'>
                     <div className='dropzoneContainer'>
                     <Dropzone multiple={false}
                     accept={'image/*'}
@@ -69,7 +73,6 @@ class CreateProfile extends Component {
                         <div>Drag and drop your profile picture here to upload</div>
                     </Dropzone>
                 </div>
-                    <form className='profileinfoContainer'>
                         {/* <label>Profile URL</label>
                         <input placeholder='Picture URL' onChange={this.handleChange} className='ProfileInput' id='profilePic' value={profilePic}></input> */}
                         <label>Tell us about you</label>
@@ -96,7 +99,7 @@ class CreateProfile extends Component {
                     
                     </form>
                 </div>
-            </body>
+            {/* </body> */}
         </div> 
         );
     }
@@ -105,6 +108,7 @@ class CreateProfile extends Component {
 const mapStateToProps = state => {
     return{
         user: state.user,
+        profile:state.profile
     }
 }
 

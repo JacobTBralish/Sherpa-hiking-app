@@ -18,7 +18,7 @@
 
 .imgContainer {
     width: 100%;
-    position: relative;
+    position: absolute;
     top: 0;
 }
 
@@ -42,18 +42,18 @@
     background: none;
     color:white;
     font-family: 'Shadows Into Light Two', cursive;
-    font-size: 65px;
-    position: absolute;
+    font-size: auto;
+    position: relative;
     width: 60vw;
     height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 4;
+    text-shadow: 1px 1px 1px black;
 }
 
 #welcomeText {
-    margin-top: 25px;
     font-size: 60px;
     text-align: center;
 

@@ -50,18 +50,15 @@ class Trails extends Component {
           let renderedTrails = trailsList.slice(indexOfFirstTrail, indexOfLastTrail);
 
           let mappedTrails = renderedTrails ?  renderedTrails.map((trail, index) => {
-              return <div className='singleTrailInfo'> 
-                <Link onClick={() => {chooseTrail(trail.id)}} /* className='trailButton' */ to={{ pathname:`/trail/${trail.id}`}} 
-             key={index}><div>
+              return <div className='singleTrailInfo' key={index}> 
+              <Link to={{ pathname:`/trail/${trail.id}`}}>
                  
-             
-            
-            <img id='trailImg' src={trail.imgSmall} alt={trail.name}></img>
+            <img id='trailImg' src={trail.imgMedium} alt={<div>{trail.name}</div>}></img>
+            <button className='trailButton' onClick={() => {chooseTrail(trail.id)}}>
             <h4>{trail.name}</h4>
-            <h6>Length: {trail.length + ' miles'}</h6>
             <h6>{trail.location}</h6>
-            
-            </div></Link>
+            </button>
+            </Link>
             </div>
         }) : 'loading'
 
@@ -69,10 +66,7 @@ class Trails extends Component {
         return ( <div>
         <div className='mainTrails'>
             <div className='trailsContainer'>
-             {/* <div><GoogleMap /></div> */}
-                {/* <div className='trails'> */}{mappedTrails}{/* </div> */}
-                <p></p>
-
+               {mappedTrails}
             </div>
          </div>
            <div className='paginationContainer'>

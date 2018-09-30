@@ -91,7 +91,7 @@ export default function reducer (state = initialState, action){
 
 
 
-        case GET_PROFILE:
+        case GET_PROFILE + `_FULFILLED`:
             return {...state, profile: action.payload}
         case POST_PROFILE + `_FULFILLED`:
             return {...state, profile: action.payload}
@@ -246,20 +246,27 @@ export function logOut(){
 
 //----------------------------------------------------------------------PROFILE INFO--------------------------------------------------------------\\
 
-export function getProfile(profile){
+export function getProfile(id){
+    console.log( id );
     return {
         type: GET_PROFILE,
-        payload: profile
+        payload: axios.get(`/api/profile/${ id }`).then(response => { console.log(response.data)
+            console.log('profile.id: ', response.data);
+            console.log('response: ', response);
+            return response.data
+        })
     }
 }
 
-export function postProfile(id, profilePic, bio, city, profileState, firstName, lastName, experience ){
+export function postProfile(id, profileId, profilePic, bio, city, profileState, firstName, lastName, experience ){
     // console.log(id, profilePic, bio, city, profileState, firstName, lastName, experience)
     return {
         type: POST_PROFILE,
-        payload: axios.post(`/api/profile`, { id, profilePic, bio, city, profileState, firstName, lastName, experience }).then(response => {
+        payload: axios.post(`/api/profile/${ id }`, { profileId, profilePic, bio, city, profileState, firstName, lastName, experience }).then(response => {
             // console.log(response.data, 'Here is the profiles response.data')
             return response.data;
+        }).catch(error => {
+            console.log(error, 'error in reducer post profile')
         })
     }
 }

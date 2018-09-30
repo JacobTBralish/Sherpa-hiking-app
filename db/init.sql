@@ -22,6 +22,8 @@ CREATE TABLE sherpa_profile (
 CREATE TABLE trail_reviews (
     id SERIAL PRIMARY KEY
     ,review_trail_id INTEGER NOT NULL
+    ,trail_name TEXT NOT NULL
+    ,trail_Img TEXT
     ,title VARCHAR(50) NOT NULL
     ,time TEXT NOT NULL
     ,body TEXT NOT NULL

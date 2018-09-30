@@ -12,7 +12,7 @@ class Reviews extends Component {
 
     
     componentDidMount() {/* console.log(this.props) */
-        axios.get(`/api/trail/${this.props.trailId}`).then(res => {
+        axios.get(`/api/trail/${this.props.match.params.id}`).then(res => {
             this.props.getTrailReviews(res.data);
             console.log('res.data: ', res.data);
         }).catch(error => {
@@ -47,6 +47,7 @@ class Reviews extends Component {
         let mappedTrailReviews = trailReviews ? trailReviews.map((review, index) => {
             return (
                 <div key={index}>
+                    <p>{review.name}</p>
                     <p>{review.title}</p>
                     <p>{review.rating}</p>
                     <p>{review.body}</p>

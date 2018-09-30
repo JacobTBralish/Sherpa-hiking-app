@@ -50,11 +50,7 @@ componentDidMount() {
     }
 
 
-    // INSERT INTO trail_reviews (review_trail_id, title, time, body, rating, author_id) VALUES
-    // ($1, $2, $3, $4, $5, $6);
-    // SELECT * FROM trail_reviews where review_trail_id = $1;
-
-    handlePost = ( title, reviewBody, rating, userId ) => {
+    handlePost = ( smallImg, trailName, title, reviewBody, rating, userId ) => {
         console.log("work----------------------------------")
 
     const date = new Date();
@@ -63,7 +59,7 @@ componentDidMount() {
     //    console.log('DATE',time)
     //    console.log(title, time, reviewBody, rating, userId)
 
-        axios.post(`/api/trail/${this.props.match.params.id}`, { title, time, reviewBody, rating, userId} ).then(response => {
+        axios.post(`/api/trail/${this.props.match.params.id}`, { smallImg, trailName, title, time, reviewBody, rating, userId} ).then(response => {
             // console.log( response.data )
             this.props.postTrailReview(response.data);
         }).catch(error => {
@@ -94,12 +90,6 @@ componentDidMount() {
         })
     }
 
-    // setToVisited(userId, visited, visitCount){
-    //     this.handleVist(userId, visitCount);
-    //     this.handleCount(visited);
-    // }
-
-
 
     render() { 
        let style = {
@@ -112,6 +102,8 @@ componentDidMount() {
         // console.log('this.props', this.props)
         let { chosenTrail, user } = this.props;
         let { title, rating, reviewBody, visitCount } = this.state;
+
+        console.log(chosenTrail[0], 'this is chosen trail!')
 
         // console.log(user.profileFinished)
 
@@ -171,7 +163,7 @@ componentDidMount() {
                     <input id='reviewBody' className='reviewInput' onChange={this.handleChange}></input>
 
                     {/* {user && user.profileFinished ? */}
-                    <button className='postButton'  onClick={() => {this.handlePost( title, reviewBody, rating, user.id )}}>Post Review</button>
+                    <button className='postButton'  onClick={() => {this.handlePost(chosenTrail[0].imgSmall, chosenTrail[0].name, title, reviewBody, rating, user.id )}}>Post Review</button>
                     {/* : */}
                     {/* // <button className='postButton'  onClick={() => {alert('You are not logged in! Please log in or create an account to post a review.')}}>Post Review</button> */}
                     }

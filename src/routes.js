@@ -25,7 +25,7 @@ export default (
         <Route path='/trail' component={Reviews} />
         {/* <Route path='/googlemaps' component={GoogleMaps} /> */}
         <Route path='/profile/:id' component={Profile} />
-        <Route path='/profileCreate' component={CreateProfile} />
+        <Route path='/profileCreate/:id' component={CreateProfile} />
         <Route path='/profileEdit/:id' component={EditProfile} />
     </Switch>
 )

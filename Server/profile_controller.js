@@ -4,7 +4,9 @@ module.exports = {
         const db = req.app.get('db');
         let { id } = req.params;
 
+
         db.get_profile( id ).then(profile => {
+            console.log('profile: ', profile);
             res.status(200).json(profile)}).catch(error => {
                 res.status(500).json(error);
                 console.log(error, 'There was an error getting your profile.')
@@ -26,12 +28,13 @@ module.exports = {
 
     postProfile: (req, res ) => {
         const db = req.app.get('db');
-        console.log(req.body)
-        let { id, profilePic, bio, city, profileState, firstName, lastName, experience } = req.body;
+        console.log(req.body, 'this is req body in controller')
+        console.log(req.params, 'this is req params in controller')
+        let { profileId, profilePic, bio, city, profileState, firstName, lastName, experience } = req.body;
         console.log(profilePic)
-        // let { id } = req.params
+        let { id } = req.params
 
-        db.create_profile( [ id, profilePic, bio, city, profileState, firstName, lastName, experience ] ).then(profile => {
+        db.create_profile( [ id, profileId, profilePic, bio, city, profileState, firstName, lastName, experience ] ).then(profile => {
             console.log(profile)
             // res.status(200).json(profile)}).catch(error => {
             //     res.status(500).json(error);
@@ -45,6 +48,8 @@ module.exports = {
             })
     },
 
+    
+
     // visitedTrail: (req, res) => {
     //     const db = req.app.get('db');
     //     let { id } = req.params;
@@ -56,13 +61,4 @@ module.exports = {
     //         })
     // }
 
-//         profileCreated: (req, res) => {
-//             const db = req.app.get('db');
-//             let {id } =req.params;
-
-//             db.profile_finished( id ).then(finished => {
-//                 res.status(200).json(finished)}).catch(error => {
-//                     res.status(500).json(error);
-//                     console.log(error, 'Error with marking profile completed')
-//                 })
         }

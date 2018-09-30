@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 const massive = require('massive');
 const pC = require('./profile_controller');
 const tC = require('./trail_controller');
-// const aC = require('./auth_controller');
+const vC = require('./visited_controller');
+const rC = require('./review_controller');
 const axios = require('axios');
 
 //------------------------------------------------------------------Session------------------------------------------------------------------\\
@@ -122,7 +123,7 @@ app.get('/api/upload', (req, res) => {
 
 app.get('/api/profile/:id', pC.getProfile);
 app.put('/api/profile/:id', pC.editProfile);
-app.post('/api/profile', pC.postProfile);
+app.post('/api/profile/:id', pC.postProfile);
 
 //------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
 
@@ -132,8 +133,12 @@ app.delete(`/api/trail/:id`, tC.deleteReview);
 
 //------------------------------------------------------------------------------Trail Visited Controller------------------------------------------------------------------\\
 
-app.get('/api/visitedtrail/:id', tC.getVisited);
-app.post('/api/visitedtrail/:id', tC.postVisited);
+app.get('/api/visitedtrail/:id', vC.getVisited);
+app.post('/api/visitedtrail/:id', vC.postVisited);
+
+//------------------------------------------------------------------------------Trail Visited Controller------------------------------------------------------------------\\
+
+app.get('/api/profileReviews/:id', rC.getProfileReviews);
 
 //----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
 
@@ -150,77 +155,3 @@ app.listen(PORT, () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//bcrypt
-// app.post('/register', (req, res) => {
-//   const db = req.app.get('db')
-//   const { username, password, email } = req.body;
-//   bcrypt.hash(password, saltRounds).then(hashedPassword => {
-//  db.create_bcrypt_user([username, hashedPassword, email]).then(() => {
-//     req.session.user = { username };
-//     res.json({ username });
-//   }).catch(error => {
-//     if (error.message.match(/duplicate key/)) {
-//       res.status(409).json({ message: "That user already exists." });
-//     } else {
-//       res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
-//     }
-//   });
-// }).catch(error => {
-//     res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
-// });
-// });
-
-// app.post('/login', (req, res) => {
-//   const db = req.app.get('db')
-//     const { username, password } = req.body;
-//     db.find_user([username]).then(data => {
-//       if (data.length) {
-//         bcrypt.compare(password, data[0].password).then(passwordsMatch => {
-//         if (passwordsMatch) {
-//           req.session.user = { username };
-//           res.json({ username });
-//         } else {
-//           res.status(403).json({ message: 'Invalid password.' });
-//         }
-//       }).catch(error => {
-//         res.status(500).json({ message: 'An error has occurred; for security reasons it cannot be disclosed.',error })
-//       })
-//       } else {
-//         res.status(403).json({ message: 'Unknown user' });
-//       }
-//     }).catch(error => {
-//       console.log('error', error);
-//       res.status(500).json({ message: "An error occurred; for security reasons it can't be disclosed.",error });
-//     });
-//   });
-
-//   app.post('/logout', (req, res) => {
-//     req.session.destroy();
-//     res.send();
-//   })

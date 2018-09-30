@@ -1,22 +1,36 @@
 
-.mainProfileContainer {
+.mainCreateContainer {
     display: flex;
     width: 100vw;
     height: 100vh;
     font-family: Montserrat, sans-serif;
     justify-content: center;
+    align-content: center
+
 }
 
-.profileContainer {
+.personalCreateContainer{
+    display: flex;
+    height: 60vh;
+    width: 40vw;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+
+/* .profileCreateContainer {
     display: flex;
     width: 95vw;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-content: center;
+    height: 100vh; */
+/* } */
 
-}
 
-.profileInfoContainer {
+.createProfileInfoContainer {
     justify-content: center;
     display: flex;
     margin: 50px;
@@ -24,7 +38,8 @@
     text-align: left;
     background: rgb(228, 115, 74);
     padding: 20px;
-    align-content: center
+    align-content: center;
+    align-items: stretch;
 
 }
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { logIn, logOut  } from '../../Redux/reducer';
 import axios from 'axios';
 import { connect } from 'react-redux'
+import Popup from "reactjs-popup";
 // import logo from '../../photos/edited-sherpa.png';
 import './Nav.css';
 
@@ -11,7 +12,7 @@ class Nav extends Component {
     constructor(props){
         super(props);
         this.state ={
-
+            redirect: false,
         }
     }
 
@@ -45,10 +46,9 @@ componentDidMount(){
         alert("You are not logged in! Please log in to access your profile.")
     }
 
-
     render(){
         const { user, profile/* , firstName  */} = this.props;
-
+        console.log(profile)
     return (
         <div>
     <div className='NavBack'>
@@ -67,7 +67,7 @@ componentDidMount(){
                 ?
                 <button onClick={this.login} id='authButton' className='navButton'>Login</button>
                 :
-                <button onClick={this.logout} id='authButton' className='navButton'>Log Out</button>}
+                <button onClick={this.logout /* history.push('/') */} id='authButton' className='navButton'>Log Out</button>}
 
                 {/* <button className='navButton'><Link to='/googlemaps'>Search the map</Link></button> */}
                 {user ?

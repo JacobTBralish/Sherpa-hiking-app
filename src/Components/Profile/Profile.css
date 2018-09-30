@@ -11,11 +11,14 @@
     display: flex;
     align-content: center;
     justify-content: center;
-    width: 90vw;
+    width: 95vw;
     height: 100vh;
+    flex-direction: column;
+
 }
 
 .personalContainer {
+    margin:3%;
     width: 37%;
     padding: 20px;
     border: 2px black solid;
@@ -47,4 +50,56 @@
 
 .profileInfo > p {
     padding: 3px;
+}
+
+.editButtonAnimation {
+    width: 25px;
+    height: 25px;
+    background-color: rgb(39, 124, 50);
+    border-radius: 50px;
+    color: black;
+    position: relative;
+    transition: width .7s .3s;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.editButtonAnimation i {
+    position: absolute;
+    left:0;
+    right:0;
+    text-align: center;
+    padding: 6.2px;
+    font-size: 13px;
+    transition: opacity 0.7s 0.7s;
+}
+
+
+.editButtonAnimation::after {
+    content: "Edit Profile";
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 6.2px 0;
+    padding-bottom: 0;
+    width: 100%;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.editButtonAnimation:hover {
+    width: 100px;
+    transition: width 0.7s;
+}
+
+.editButtonAnimation:hover i {
+    transition: opacity 0.7s;
+    opacity: 0;
+}
+
+.editButtonAnimation:hover::after {
+    opacity: 1;
+    transition: opacity 0.7s 0.7s
 }
