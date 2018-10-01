@@ -11,7 +11,8 @@ class Weather extends Component {
     super(props);
     this.state = {
         weather: [],
-        newWeather: []
+        newWeather: [],
+        toggleValue: false
 
     }
 }
@@ -66,6 +67,7 @@ getDate = (date) => {
 //   }
 
 
+
 findWeatherInfoByDay = (arr, cb) => {
     let dates = [];
     for (let i=0; i<arr.length; i++){
@@ -92,58 +94,67 @@ findWeatherInfoByDay = (arr, cb) => {
     return dates
   }
   
-  
+    
+    // toggleValueButton = () => {
+    //     this.setState({toggleValue: !this.state.toggleValue})
+    // }
+
+
+
+    toggleValueButton = () => {
+        this.setState((prevState) =>{
+         console.log('prevstate', prevState)
+            return {
+                toggleValue: !prevState.toggleValue,
+            }
+         })
+     }
+
 
 
 
     render() { 
+        console.log(this.state.toggleValue);
 
         let { findWeatherInfoByDay, getDate } = this;
-        let { weather } = this.state;
+        let { weather, toggleView } = this.state;
         console.log('weather: ', weather);
         
         let mappedWeather = findWeatherInfoByDay.length ? findWeatherInfoByDay(weather, getDate).map((day, index) => {
-            console.log('day.hour', day)
                 let mappedDay = day.hour.map((info) => {
-                    // console.log('====', info)
+                    console.log('====', info)
+                                console.log(mappedWeather);
                     return<div className='weatherInfoBox'>
-                            <img src={`http://openweathermap.org/img/w/${info.icon}.png`}></img>
-                            <div id='weatherText'>High: {info.maxTemp}°F</div>
-                            <div id='weatherText'>Low: {info.minTemp}°F</div>
-                            <div id='weatherText'>{info.description}</div>
-                        </div>
+                                <ul className='dropdownContent'>
+                                    <li><img src={`http://openweathermap.org/img/w/${info.icon}.png`}></img></li>
+                                    <li id='weatherText'>High: {info.maxTemp}°F</li>
+                                    <li id='weatherText'>Low: {info.minTemp}°F</li>
+                                    <li id='weatherText'>{info.description}</li>
+                                </ul>
+                             
+                            </div>
                 })
-                return <div className='weatherMain' key={index}>
-                <h5 id='weatherText'>{day.day}</h5>
-                <div>{mappedDay}</div>
+                return<div className='weatherMain' key={index}>
+                <h3>{day.day}</h3>
+                <div className='mappedDayBox'>{mappedDay}</div>
+                
             </div>
         }) : 'loading...'
-
-
         
-
-
-
-        // let mappedWeather = weather.length ?  weather.map((temp, index) => {
-
-        //     return <div key={index}>
-        //     {/* <p>{temp.list[0].}</p> */}
-        //     <p>{temp}</p>
-        //     </div>
-        //     }) : ''
-            
-        // let mappedForecast = weatherArray ? weatherArray.map()
-
-            
-            
         
-
-
-    return ( 
-        <div >
+        
+        
+        return ( 
+            <div className='weatherBoxDisplay'>
+                <div><button onClick={this.toggleValueButton}>Click to view the weather for this week!</button></div>
+            { this.state.toggleValue ?
         <div className='weatherContainer'>
             {mappedWeather}
         </div>
+         :
+        ''
+            }
+
         </div>
         );
         }
@@ -164,39 +175,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(Weather);
 
 
 
-
-
-
-            // let { newWeather } = this.state;
-                // this.state.newWeather = [
-                  
-                //   {date:moment(this.getDate(temp.list[1].dt_txt.split(' '))).format('MMMM Do YYYY'),
-                //   low: temp.list[1].main.temp_min,
-                //   high: temp.list[1].main.temp_max, 
-                //   description: temp.list[1].weather[0].description},
-                  
-                //   {date:moment(this.getDate(temp.list[9].dt_txt.split(' '))).format('MMMM Do YYYY'),
-                //   low: temp.list[9].main.temp_min,
-                //   high: temp.list[9].main.temp_max,
-                //   description: temp.list[9].weather[0].description},
-                  
-                //   {date:moment(this.getDate(temp.list[17].dt_txt.split(' '))).format('MMMM Do YYYY'),
-                //   low: temp.list[17].main.temp_min,
-                //   high: temp.list[17].main.temp_max,
-                //   description: temp.list[17].weather[0].description},
-              
-                //   {date:moment(this.getDate(temp.list[25].dt_txt.split(' '))).format('MMMM Do YYYY'),
-                //   low: temp.list[25].main.temp_min,
-                //   high: temp.list[25].main.temp_max,
-                //   description: temp.list[25].weather[0].description},
-              
-                //   {date:moment(this.getDate(temp.list[33].dt_txt.split(' '))).format('MMMM Do YYYY'),
-                //   low: temp.list[33].main.temp_min,
-                //   high: temp.list[33].main.temp_max,
-                //   description: temp.list[33].weather[0].description}
-                //   ]
-                //   return<div>{JSON.parse(this.state.newWeather)}</div>  
-                // }) : ''
-                
-                // console.log(this.state.newWeather)
-              

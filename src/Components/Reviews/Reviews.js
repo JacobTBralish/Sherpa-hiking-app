@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getTrailReviews } from '../../Redux/reducer';
+import { getTrailReviews, deleteReview } from '../../Redux/reducer';
 // import StarRating from 'react-star-rating'
 
 
@@ -22,7 +22,7 @@ class Reviews extends Component {
 }
 
 
-    handleDelete(reviewId){
+    handleDelete = (reviewId) => {
         console.log(reviewId)
         axios.delete(`/api/trail/${this.props.match.params.id}?reviewId=${reviewId}`).then((response) => {
             this.props.deleteReview(response.data)
@@ -37,8 +37,8 @@ class Reviews extends Component {
 
     render() { 
         // console.log(this.props.match.params.id)
-        const data = this.props.trailReviews.length > 0 ? this.props.trailReviews[0]: {}
-
+    //     const data = this.props.trailReviews.length > 0 ? this.props.trailReviews[0]: {}
+    //  console.log(data.id);
         // console.log(data.id)
         
         let{ trailReviews } = this.props;
@@ -51,7 +51,7 @@ class Reviews extends Component {
                     <p>{review.title}</p>
                     <p>{review.rating}</p>
                     <p>{review.body}</p>
-                    <button onClick={() => this.handleDelete(data.id)}>Delete</button>
+                    <button onClick={() => this.handleDelete(review.id)}>Delete</button>
                 </div>
             )
         }) : 'loading...'
@@ -73,7 +73,8 @@ const mapStateToProps = state => {
 }
  
 const mapDispatchToProps = {
-    getTrailReviews
+    getTrailReviews,
+    deleteReview
 }
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Reviews));

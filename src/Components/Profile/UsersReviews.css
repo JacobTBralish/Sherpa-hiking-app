@@ -1,0 +1,43 @@
+
+.mainReviewsContainer {
+    height: 100%;
+    display: flex;
+    align-content: center;
+    width: 100vw;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    
+    /* margin-top: 20%; */
+}
+
+.usersReviewsContainer {
+    width: 100%;
+    height: 80vh;
+    /* border: 2px black; */
+    background: darkgrey;
+    border-radius: 10px;
+    justify-content: center;
+
+}
+
+.usersReviewsContainer > p {
+    height: 50%;
+
+}
+
+.trailReview {
+    display:flex;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 100%;
+    height: 10%;
+
+}
+
+.trailReview > p {
+    width: 100%;
+    /* height: 10%; */
+}

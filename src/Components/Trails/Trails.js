@@ -3,7 +3,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getTrails, chooseTrail } from '../../Redux/reducer'
 import './Trails.css';
-// import _ from 'lodash';
 import Pagination from 'react-js-pagination';
 import { Link } from 'react-router-dom'
 

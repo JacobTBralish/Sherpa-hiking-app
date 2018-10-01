@@ -9,11 +9,11 @@ import './Profile.css';
 
 class Profile extends Component {
     state = { 
-        // profile: []
+
      }
 
 componentDidMount() {
-    setTimeout(() => this.props.getProfile(this.props.match.params.id),1000);
+     this.props.getProfile(this.props.match.params.id)
 
 }
     
@@ -26,8 +26,7 @@ componentDidMount() {
         console.log('This is data')
         let mappedProfile = profile ? profile.map((item, index) => {
             console.log(item)
-            return <div key={index}>
-                <div>
+            return <div key={index} className='outerPersonalContainer'>
                     <div className='personalContainer'>
                         <img id='profilePic' src={item.profilepic} alt={item.first_name}></img>
                     <div className='profileInfo'>
@@ -40,27 +39,28 @@ componentDidMount() {
                         <div className='editButtonAnimation'> 
                                 <Link className='editButton' to={`/profileEdit/${ this.props.match.params.id }`}><i className="far fa-edit"></i></Link>
                         </div>
-                            
                     
                       
                     </div>
                     </div>
-                </div>
             </div> 
         }) : 'loading'
         return ( 
             <div className='mainContainer'>
-            <div className='profileContainer'>
-                {user
-                    ?<div>
-                        <div>{mappedProfile}</div> 
-                </div> : ''}
+                <div className='profileContainer'>
+                    <div>{mappedProfile}</div> 
+                    {!user.profilefinished
+                        ?<div>
+                            <Link to={`/profileCreate/${ this.props.match.params.id }`}><button>Create Profile</button></Link>
+                        </div> : ''}
 
-                    <Link to={`/profileCreate/${ this.props.match.params.id }`}><button>Create Profile</button></Link>
+           
             </div>
-            <div className='usersReviewsContainer'>
-                {user.length ? <Reviews /> : ''}
-            </div>
+                <div className='mainReviewsContainer'>
+                    <div className='usersReviewsContainer'>
+                        {profile.length ? <Reviews /> : ''}
+                    </div>
+                </div>
             </div>
          );
     }

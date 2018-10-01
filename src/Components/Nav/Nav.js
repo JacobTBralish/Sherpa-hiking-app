@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { logIn, logOut  } from '../../Redux/reducer';
 import axios from 'axios';
 import { connect } from 'react-redux'
-import Popup from "reactjs-popup";
 // import logo from '../../photos/edited-sherpa.png';
 import './Nav.css';
 
@@ -13,6 +12,7 @@ class Nav extends Component {
         super(props);
         this.state ={
             redirect: false,
+            toggle: false
         }
     }
 
@@ -48,10 +48,20 @@ componentDidMount(){
 
     render(){
         const { user, profile/* , firstName  */} = this.props;
-        console.log(profile)
+
     return (
-        <div>
+        <header className={this.state.toggle ? 'show' : 'hide'}>
     <div className='NavBack'>
+    <button className='hamburgerButton' onClick={() => {console.log(this.state.toggle); this.setState({toggle: !this.state.toggle})}}>
+       <div id='hamburger'>
+            <div id='bartop'></div>
+            <div id='barmiddle'></div>
+            <div id='barbottom'></div>
+        </div>
+    </button>
+    <nav >
+
+                    {/* </nav> */}
                 <div className='userNameBox'>{user && user.profileFinished ? `Hello ${user.name}!` : '' }</div>
     {/* <img className='logo' src={logo}></img> */}
 
@@ -77,7 +87,9 @@ componentDidMount(){
                 
             {/* </div> */}
         </div>
-    </div></div>
+        </nav>
+    </div>
+    </header>
     )
 }
 }

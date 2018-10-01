@@ -1,32 +1,67 @@
 .weatherMain {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: center;
-    width: 80vw;
-
+    
 }
 
-.weatherMain > div {
+/* .weatherMain > div {
     width: 60%;
+} */
+.mappedDayBox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.weatherBoxDisplay {
+    margin: 0 auto;
+}
+
+.weatherDispayBox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center
 }
 
 .weatherContainer {
-    display: flex;
-    /* justify-content: center;
-    align-content: center; */
-    /* align-items: center; */
-    /* background: rgb(204, 204, 204) */
+    align-self: stretch;
+    order: 0;
+    flex: 0 0 0px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 90px;
+    max-width: 100%;
 }
 
-.weatherInfoBox {
+
+
+ .weatherInfoBox {
     background: rgb(204, 204, 204);
-    width: 60%;
+    width: 160px;
     height: 12vh;
     border: 0.5px black solid;
     justify-content: center;
     align-content: center;
     align-items: center;
+    list-style: none;
+}
+
+ul {
+    align-self: stretch;
+    order: 0;
+    flex: 0 0 0px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 90px;
+}
+
+li {
+    align-self: stretch;
+    order: 0;
+    flex: 0 0 0px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 90px;
 }

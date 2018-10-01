@@ -11,17 +11,19 @@ class Trail extends Component {
     constructor(){
         super();
         this.state = {
-            toggleView: false,
             title: '',
             reviewBody: '',
             rating: 0,
             visitCount: 0,
-            visited: false
+            visited: false,
+            toggleValue: false
+
             
         }
     }
     
 
+    
 componentDidMount() {
     axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${this.props.match.params.id}&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then(res => {
         this.props.getTrail(res.data.trails);
@@ -31,13 +33,6 @@ componentDidMount() {
     })
 
   
-//     axios.get(`/api/visitedtrail/${this.props.match.params.id}`).then(response => {
-//       console.log('COMPONENTDIDMOUNT',response.data)
-//       this.props.getVisitedTrails(response.data)
-//       this.setState({visitCount:response.data.visitCount})
-//   }).catch(error => {
-//       console.log(error, 'Error getting visited trail.')
-//   })
 
     }
 
@@ -50,17 +45,17 @@ componentDidMount() {
     }
 
 
-    handlePost = ( smallImg, trailName, title, reviewBody, rating, userId ) => {
+    handlePost = ( trailName, trailImg, title, reviewBody, rating, userId, e ) => {
         console.log("work----------------------------------")
-
+        e.preventDefault();
     const date = new Date();
        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
        const time = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     //    console.log('DATE',time)
     //    console.log(title, time, reviewBody, rating, userId)
 
-        axios.post(`/api/trail/${this.props.match.params.id}`, { smallImg, trailName, title, time, reviewBody, rating, userId} ).then(response => {
-            // console.log( response.data )
+        axios.post(`/api/trail/${this.props.match.params.id}`, { trailName, trailImg, title, time, reviewBody, rating, userId} ).then(response => {
+            console.log( response.data )
             this.props.postTrailReview(response.data);
         }).catch(error => {
             console.log(error, 'Error with posting your review')
@@ -90,20 +85,28 @@ componentDidMount() {
         })
     }
 
+        toggleValueButton = () => {
+        this.setState({toggleValue: !this.state.toggleValue})
+    }
+
 
     render() { 
-       let style = {
-            padding: '4px',
-        }
-        const data = this.props.chosenTrail.length > 0 ? this.props.chosenTrail[0]: {}
+    //    let style = {
+    //         borderTop: 'none',
+    //         borderRight: 'none',
+    //         borderLeft: 'none',
+
+    //     }
+        // const data = this.props.chosenTrail.length > 0 ? this.props.chosenTrail[0]: {}
 
         // console.log(data)
 
         // console.log('this.props', this.props)
-        let { chosenTrail, user } = this.props;
+        let { chosenTrail, user, trailReviews } = this.props;
         let { title, rating, reviewBody, visitCount } = this.state;
 
         console.log(chosenTrail[0], 'this is chosen trail!')
+        // console.log();
 
         // console.log(user.profileFinished)
 
@@ -113,7 +116,7 @@ componentDidMount() {
                 <div className='trailContainer'>
                     <div className='imageContainer'><img className='trailImage' src={trail.imgMedium} alt={trail.name}></img></div>
                         <div className='infoContainer'>
-                        <h6>Name: {trail.name}</h6>
+                        <h6 >Name: {trail.name}</h6>
                         <h6>Location: {trail.location}</h6>
                         <h6>Rating: {trail.stars}/5</h6>
                         <h6>Difficulty: {trail.difficulty}</h6>
@@ -124,7 +127,11 @@ componentDidMount() {
                         <h6>Latitude: {trail.latitude}</h6>
                         <h6>Longitude: {trail.longitude}</h6>
                         <h6>Description: {trail.summary}</h6>
-                        <div><button onClick={() => {this.handleVist(user.id, visitCount)}}>Visited</button> {visitCount === 1 ? `1 person has been to ${trail.name}!` : `${visitCount} people have been to ${trail.name}!`}</div>
+                        <div className='visitedButtonAnimation'><submit onClick={() => {this.handleVist(user.id, visitCount)}} className='styledButton'><i class="fas fa-plus"></i></submit> 
+                        </div>
+                        {visitCount === 1 ? `1 person has been to ${trail.name}!` : `${visitCount} people have been to ${trail.name}!`}
+                        <div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -160,17 +167,20 @@ componentDidMount() {
                         <option value={5}>5</option>
                     </select>
                     <label>Review: </label>
-                    <input id='reviewBody' className='reviewInput' onChange={this.handleChange}></input>
+                    <textarea id='reviewBody' className='reviewInput' onChange={this.handleChange}></textarea>
 
+                        <div className='styledButtonAnimation'>
+                        <button className='styledButton'  onClick={(e) => {this.handlePost( chosenTrail[0].name, chosenTrail[0].imgSmallMed, title, reviewBody, rating, user.id, e )}}><i class="far fa-paper-plane"></i></button>
+                    </div>
                     {/* {user && user.profileFinished ? */}
-                    <button className='postButton'  onClick={() => {this.handlePost(chosenTrail[0].imgSmall, chosenTrail[0].name, title, reviewBody, rating, user.id )}}>Post Review</button>
+
                     {/* : */}
                     {/* // <button className='postButton'  onClick={() => {alert('You are not logged in! Please log in or create an account to post a review.')}}>Post Review</button> */}
-                    }
+                    
                 </form>
                <div className='displayedReviewsContainer'>
 
-                   <Reviews className="displayedReviews" trailId={this.props.trailId} />
+               <Reviews className="displayedReviews" trailId={this.props.trailId} />
                    
                    
                

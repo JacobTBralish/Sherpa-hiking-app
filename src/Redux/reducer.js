@@ -16,6 +16,7 @@ const initialState = {
     trailReviews: [],
 
     visited: [],
+    visitCount: 0,
 
     latitude: '',
     longitude: '',
@@ -43,6 +44,7 @@ const GET_TRAIL = 'GET_TRAIL';
 
 const GET_VISITED_TRAIL = 'GET_VISITED_TRAIL';
 const POST_VISITED_TRAIL = 'POST_VISITED_TRAIL';
+const INCREMENT_VISITED = 'INCREMENT_VISITED';
 
 const GET_TRAIL_REVIEWS = 'GET_TRAIL_REVIEWS';
 const POST_TRAIL_REVIEWS = 'POST_TRAIL_REVIEWS';
@@ -87,6 +89,8 @@ export default function reducer (state = initialState, action){
             return {...state, visited: action.payload}
         case POST_VISITED_TRAIL:
             return {...state, visited: action.payload}
+        case INCREMENT_VISITED:
+            return {...state, visitCount: action.payload}
 
 
 
@@ -208,10 +212,16 @@ return {
     }
 }
 
-
 export function getVisitedTrails(visited){
 return {
     type: GET_VISITED_TRAIL,
+    payload: visited
+    }
+}
+
+export function incrementVisited(visited){
+return {
+    type: INCREMENT_VISITED,
     payload: visited
     }
 }

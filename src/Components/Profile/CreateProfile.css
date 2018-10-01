@@ -1,24 +1,26 @@
 
-.mainCreateContainer {
+ .mainCreateContainer {
     display: flex;
     width: 100vw;
     height: 100vh;
     font-family: Montserrat, sans-serif;
     justify-content: center;
-    align-content: center
+    align-content: center;
+    align-items: center;
+    padding-top: 5%;
 
 }
 
-.personalCreateContainer{
+/* .personalCreateContainer{
     display: flex;
     height: 60vh;
     width: 40vw;
     justify-content: center;
-    margin: 0 auto;
-}
+    /* margin: 0 auto; */
+/* } */
 
 
-/* .profileCreateContainer {
+ .profileCreateContainer {
     display: flex;
     width: 95vw;
 
@@ -26,17 +28,19 @@
     justify-content: center;
     flex-direction: column;
     align-content: center;
-    height: 100vh; */
-/* } */
+    height: 100vh;
+}
 
 
 .createProfileInfoContainer {
+    padding: 75px;
+
     justify-content: center;
     display: flex;
-    margin: 50px;
+    /* margin: 50px; */
     flex-direction: column;
     text-align: left;
-    background: rgb(228, 115, 74);
+    background: darkgrey;
     padding: 20px;
     align-content: center;
     align-items: stretch;

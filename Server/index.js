@@ -135,6 +135,7 @@ app.delete(`/api/trail/:id`, tC.deleteReview);
 
 app.get('/api/visitedtrail/:id', vC.getVisited);
 app.post('/api/visitedtrail/:id', vC.postVisited);
+app.put('/api/visitedtrail/:id', vC.postVisited);
 
 //------------------------------------------------------------------------------Trail Visited Controller------------------------------------------------------------------\\
 
@@ -143,10 +144,10 @@ app.get('/api/profileReviews/:id', rC.getProfileReviews);
 //----------------------------------------------------------------------------------DB and Server------------------------------------------------------------\\
 
 
-// const path = require('path')
-// app.get('*', (req, res)=>{
-//   res.sendFile(path.join(__dirname, '../build/index.html'));
-// })
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 const PORT = 4000;
 app.listen(PORT, () => {

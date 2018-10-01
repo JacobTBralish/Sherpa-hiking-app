@@ -23,7 +23,7 @@ console.log(req.body,'THIS IS REQ.BODY OF POST REV')
         const db = req.app.get('db');
         let { trailName, trailImg ,title, time, reviewBody, rating, userId } = req.body;
         let { trailId } = req.params;
-
+        console.log('trail image ',trailImg)
 
         db.post_trail_review( { reviewTrailId: trailId, trailName: trailName, trailImg: trailImg ,title, time, body: reviewBody, rating, authorId: userId }).then(review => {
             res.status(200).json(review)

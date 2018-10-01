@@ -21,7 +21,7 @@ class Home extends Component {
             </div> : <div> </div>
                 } 
                         <div className='imgContainer' >
-                            <img id='homeImage' alt='Sherpa Hiking' src={mainImage}></img>
+                            {/* <img id='homeImage' alt='Sherpa Hiking' src={mainImage}></img> */}
                             <div className='overlay'></div>
                         </div>
                     </div>

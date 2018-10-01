@@ -7,21 +7,29 @@
 
 }
 
+.outerPersonalContainer {
+    display: flex;
+}
+
 .profileContainer {
     display: flex;
     align-content: center;
     justify-content: center;
+    align-content: center;
     width: 95vw;
     height: 100vh;
     flex-direction: column;
+    padding-left: 10%;
+    padding-right: 10%;
 
 }
 
 .personalContainer {
     margin:3%;
-    width: 37%;
+    width: 80%;
     padding: 20px;
-    border: 2px black solid;
+    border-radius: 10px;
+    background: darkgrey;
 }
 
 .profileInfo {
@@ -102,4 +110,8 @@
 .editButtonAnimation:hover::after {
     opacity: 1;
     transition: opacity 0.7s 0.7s
+}
+
+.usersReviewsContainer {
+    width: 53%;
 }
