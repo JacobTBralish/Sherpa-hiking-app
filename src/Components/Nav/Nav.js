@@ -59,7 +59,7 @@ componentDidMount(){
             <div id='barbottom'></div>
         </div>
     </button>
-    <nav >
+    <nav className='NavBack'>
 
                     {/* </nav> */}
                 <div className='userNameBox'>{user && user.profileFinished ? `Hello ${user.name}!` : '' }</div>
