@@ -1,0 +1,83 @@
+.review {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+}
+
+.reviewsTitle {
+    font-size: 25px;
+    align-content: center;
+    text-decoration: underline;
+    padding: 10px
+}
+
+ .reviewInfo {
+    padding: 20px;
+}
+
+.trashButtonAnimation {
+    width: 25px;
+    height: 30px;
+    background-color: rgb(39, 124, 50);
+    border-radius: 10px;
+    color: white;
+    position: relative;
+    transition: width .7s .3s;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+
+.trashButtonAnimation > button {
+    color: white;
+    border: none;
+    background: none;
+    margin: 0;
+    /* padding: 0; */
+  }
+
+
+.trashButtonAnimation i {
+    position: absolute;
+    left:0;
+    right:0;
+    text-align: center;
+    line-height: 0%;
+    padding: 6.2px;
+    font-size: 13px;
+    transition: opacity 0.7s 0.7s;
+  }
+  
+
+.trashButtonAnimation::after {
+    content: "trash";
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 6.2px 0;
+    padding-bottom: 0;
+    width: 100%;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+
+.trashButtonAnimation:hover {
+    width: 100px;
+    transition: width 0.7s;
+  }
+
+
+.trashButtonAnimation:hover i {
+    transition: opacity 0.7s;
+    opacity: 0;
+  }
+  
+
+.trashButtonAnimation:hover::after {
+    opacity: 1;
+    transition: opacity 0.7s 0.7s
+  }

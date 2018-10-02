@@ -28,9 +28,9 @@ componentDidMount() {
             console.log(item)
             return <div key={index} className='outerPersonalContainer'>
                     <div className='personalContainer'>
+                        <h2 id='name'>{item.first_name} {item.last_name}</h2>
                         <img id='profilePic' src={item.profilepic} alt={item.first_name}></img>
                     <div className='profileInfo'>
-                        <h2 id='name'>{item.first_name} {item.last_name}</h2>
                         <h4>Location:</h4>
                         <p>{item.city}, {item.state}</p>
                         <h4>About {item.first_name}:</h4>

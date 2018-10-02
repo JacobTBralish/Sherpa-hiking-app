@@ -1,3 +1,5 @@
+
+
 .mainContainer {
     height: 100vh;
     width: 100vw;
@@ -9,6 +11,8 @@
 
 .outerPersonalContainer {
     display: flex;
+    width: 150%;
+    /* height: 80%; */
 }
 
 .profileContainer {
@@ -18,18 +22,22 @@
     align-content: center;
     width: 95vw;
     height: 100vh;
-    flex-direction: column;
+    flex-direction: row;
     padding-left: 10%;
     padding-right: 10%;
+    padding-top: 10%
 
 }
 
 .personalContainer {
+    flex-direction: row;
+
     margin:3%;
     width: 80%;
     padding: 20px;
     border-radius: 10px;
     background: darkgrey;
+    height: 90%;
 }
 
 .profileInfo {
@@ -37,13 +45,14 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     padding: 7px;
-    width: 45%;
+    width: 100%;
 
 }
 
 #profilePic {
-    width: auto;
-    height: auto;
+    /* position: relative; */
+    width: 100%;
+    height: 70%;
     max-width: 400px;
     max-height: 600px;
 }
@@ -57,6 +66,7 @@
 }
 
 .profileInfo > p {
+    position: relative;
     padding: 3px;
 }
 
@@ -112,6 +122,16 @@
     transition: opacity 0.7s 0.7s
 }
 
-.usersReviewsContainer {
-    width: 53%;
-}
+
+@media( max-width: 700px){
+   .mainContainer {
+       display: flex;
+       flex-direction: column;
+       width: 100vw;
+       height: 100vh;
+       
+   }
+   .profileContainer {
+    margin: 5%;
+    }
+  }

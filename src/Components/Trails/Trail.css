@@ -1,5 +1,5 @@
-.mainContainer {
-    height: 100vh;
+.mainTrail {
+    height: 80vh;
     width: 100vw;
     display: flex;
     align-content: center;
@@ -71,6 +71,8 @@
 
 .reviewForm {
     display: flex;
+    border-radius: 10px;
+
     /* justify-content: center; */
     align-items: center;
     position: relative;

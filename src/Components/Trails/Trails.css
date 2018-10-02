@@ -72,7 +72,7 @@
 
 .styledButtonAnimation {
   width: 25px;
-  height: 25px;
+  height: 30px;
   background-color: rgb(39, 124, 50);
   border-radius: 10px;
   color: white;
@@ -99,15 +99,16 @@
 .styledButtonAnimation > button {
   border: none;
   background: none;
-  margin: 0;
-  padding: 0;
+  color:white;
+  /* margin: 0; */
+  /* padding: 0; */
 }
 
 .visitedButtonAnimation > button {
   border: none;
   background: none;
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
 }
 
 .styledButtonAnimation i {
@@ -115,6 +116,7 @@
   left:0;
   right:0;
   text-align: center;
+  line-height: 0%;
   padding: 6.2px;
   font-size: 13px;
   transition: opacity 0.7s 0.7s;
@@ -125,6 +127,7 @@
   left:0;
   right:0;
   text-align: center;
+  /* line-height: 0%; */
   padding: 6.2px;
   font-size: 13px;
   transition: opacity 0.7s 0.7s;
@@ -136,8 +139,8 @@
   display: inline-block;
   text-align: center;
   text-transform: uppercase;
-  padding: 6.2px 0;
-  padding-bottom: 0;
+  /* padding: 6.2px 0; */
+  /* padding-bottom: 0; */
   width: 100%;
   font-size: 13px;
   opacity: 0;

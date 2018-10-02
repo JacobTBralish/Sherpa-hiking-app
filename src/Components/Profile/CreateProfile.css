@@ -37,7 +37,7 @@
 
     justify-content: center;
     display: flex;
-    /* margin: 50px; */
+    margin: 50px;
     flex-direction: column;
     text-align: left;
     background: darkgrey;

@@ -48,6 +48,13 @@
     list-style: none;
 }
 
+.weatherButton {
+    border: none;
+    background-color: var(--mainColor);
+    border-radius: 10px;
+    color: white;
+}
+
 ul {
     align-self: stretch;
     order: 0;

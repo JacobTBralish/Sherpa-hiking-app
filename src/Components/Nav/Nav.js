@@ -53,12 +53,12 @@ componentDidMount(){
         <header className={this.state.toggle ? 'show' : 'hide'}>
     <div className='NavBack'>
     <button className='hamburgerButton' onClick={() => {console.log(this.state.toggle); this.setState({toggle: !this.state.toggle})}}>
-       <div id='hamburger'>
+       {/* <div id='hamburger'>
             <div id='bartop'></div>
             <div id='barmiddle'></div>
             <div id='barbottom'></div>
-        </div>
-    </button>
+        </div> */}
+    Sherpa</button>
     <nav className='NavBack'>
 
                     {/* </nav> */}

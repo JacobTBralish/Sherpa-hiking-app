@@ -70,7 +70,7 @@ class CreateProfile extends Component {
                     accept={'image/*'}
                     onDrop={this.handleImageUpload}
                     className='dropzone'>
-                        <div>Drag and drop your profile picture here to upload</div>
+                        <div>Click here or drag and drop your profile picture here to upload</div>
                     </Dropzone>
                 </div>
                         {/* <label>Profile URL</label>

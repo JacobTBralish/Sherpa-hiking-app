@@ -146,7 +146,7 @@ findWeatherInfoByDay = (arr, cb) => {
         
         return ( 
             <div className='weatherBoxDisplay'>
-                <div><button onClick={this.toggleValueButton}>Click to view the weather for this week!</button></div>
+                <div><button className='weatherButton' onClick={this.toggleValueButton}>Click to view the weather for this week!</button></div>
             { this.state.toggleValue ?
         <div className='weatherContainer'>
             {mappedWeather}

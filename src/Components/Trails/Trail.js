@@ -112,7 +112,7 @@ componentDidMount() {
 
         let showTrail = chosenTrail ? chosenTrail.map((trail, index) => {
            return (
-            <div key={index} className='mainContainer'>
+            <div key={index} className='mainTrail'>
                 <div className='trailContainer'>
                     <div className='imageContainer'><img className='trailImage' src={trail.imgMedium} alt={trail.name}></img></div>
                         <div className='infoContainer'>

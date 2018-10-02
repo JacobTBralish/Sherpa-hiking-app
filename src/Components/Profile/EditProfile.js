@@ -56,20 +56,19 @@ class EditProfile extends Component {
         let { user } = this.props;
 
         
-        return ( 
-<div>
-            <body className='mainProfileContainer'>
-                <div className='profileContainer'>
+        return ( <div className='mainCreateContainer'>
+            {/* <body > */}
+                <div className='personalCreateContainer'>
+                    <form className='createProfileInfoContainer'>
                     <div className='dropzoneContainer'>
                     <Dropzone multiple={false}
                     accept={'image/*'}
                     onDrop={this.handleImageUpload}
                     className='dropzone'>
-                        <div>Drag and drop your profile picture here to upload</div>
+                        <div>Click here or drag and drop your profile picture here to upload</div>
                     </Dropzone>
             {/* <button label="Print Files" primary={true} onClick={(event) => this.handleClick(event)}>Upload image</button> */}
                 </div>
-                    <form className='profileinfoContainer'>
                         {/* <label>Profile URL</label>
                         <input placeholder='Picture URL' onChange={this.handleChange} className='ProfileInput' id='profilePic' value={profilePic}></input> */}
                         <label>Edit your bio:</label>
@@ -94,7 +93,7 @@ class EditProfile extends Component {
                     
                     </form>
                 </div>
-            </body>
+            {/* </body> */}
         </div> 
         );
     }
