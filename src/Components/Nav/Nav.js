@@ -47,7 +47,7 @@ componentDidMount(){
     }
 
     render(){
-        const { user, profile/* , firstName  */} = this.props;
+        const { user } = this.props;
 
     return (
         <header className={this.state.toggle ? 'show' : 'hide'}>
@@ -62,7 +62,7 @@ componentDidMount(){
     <nav className='NavBack'>
 
                     {/* </nav> */}
-                <div className='userNameBox'>{user && user.profileFinished ? `Hello ${user.name}!` : '' }</div>
+                <div className='userNameBox'>{user && user.profileFinished ? `Hello ${user.firstname }!` : '' }</div>
     {/* <img className='logo' src={logo}></img> */}
 
     <div className='webTitle'><h1>SHERPA</h1></div>

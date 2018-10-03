@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mainImage from '../../photos/clouds-conifers-daylight.jpg';
 import './Home.css'
 
 class Home extends Component {
@@ -13,7 +12,7 @@ class Home extends Component {
                     <div >
                     {user 
                         ?<div  className='login-display'>
-                            <div id='welcomeText'>Welcome to Sherpa {user.name}</div> 
+                            <div id='welcomeText'>Welcome to Sherpa {profile.firstname}</div> 
                             <div> </div> 
                             <div>
                         </div> 

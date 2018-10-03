@@ -32,7 +32,7 @@ class UsersReviews extends Component {
 
     render() { 
         let { usersReviews, itemsPerPage, activePage } = this.state;
-        let { chosenTrail } = this.props;
+        // let { chosenTrail } = this.props;
 
         console.log('usersReviews: ', usersReviews);
 
@@ -49,7 +49,7 @@ class UsersReviews extends Component {
             return <div key={index} className='trailReview'>
                 <div>
                     <div className='trailTitle'><Link to={{ pathname:`/trail/${review.review_trail_id}`}}>{review.trail_name}</Link></div>
-                    <img className='trailReviewImage' src={review.trail_img}></img>
+                    <img className='trailReviewImage' src={review.trail_img} alt={review.trail_name}></img>
                 </div>
             <p className='trailReviewBody'>{review.body}</p>
             </div>

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { getProfile } from '../../Redux/reducer';
 import Reviews from './UsersReviews';
 import './Profile.css';
 
 
 class Profile extends Component {
-    state = { 
 
-     }
 
 componentDidMount() {
      this.props.getProfile(this.props.match.params.id)

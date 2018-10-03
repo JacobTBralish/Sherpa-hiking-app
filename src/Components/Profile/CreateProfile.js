@@ -56,7 +56,7 @@ class CreateProfile extends Component {
 
         let { profilePic, bio, city, profileState, firstName, lastName, experience } = this.state;
         let { user } = this.props;
-        const data = this.props.user.length > 0 ? this.props.user[0]: {}
+        // const data = this.props.user.length > 0 ? this.props.user[0]: {}
         console.log('user: ', user);
         console.log(profilePic, this.props.profile)
         

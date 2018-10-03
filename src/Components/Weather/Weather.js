@@ -117,16 +117,16 @@ findWeatherInfoByDay = (arr, cb) => {
         console.log(this.state.toggleValue);
 
         let { findWeatherInfoByDay, getDate } = this;
-        let { weather, toggleView } = this.state;
+        let { weather } = this.state;
         console.log('weather: ', weather);
         
         let mappedWeather = findWeatherInfoByDay.length ? findWeatherInfoByDay(weather, getDate).map((day, index) => {
-                let mappedDay = day.hour.map((info) => {
-                    console.log('====', info)
-                                console.log(mappedWeather);
-                    return<div className='weatherInfoBox'>
+                let mappedDay = day.hour.map((info, index) => {
+                    // console.log('====', info)
+                                // console.log(mappedWeather);
+                    return<div className='weatherInfoBox' key={index}>
                                 <ul className='dropdownContent'>
-                                    <li><img src={`http://openweathermap.org/img/w/${info.icon}.png`}></img></li>
+                                    <li><img alt={info.description} src={`http://openweathermap.org/img/w/${info.icon}.png`}></img></li>
                                     <li id='weatherText'>High: {info.maxTemp}°F</li>
                                     <li id='weatherText'>Low: {info.minTemp}°F</li>
                                     <li id='weatherText'>{info.description}</li>
