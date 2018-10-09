@@ -185,7 +185,7 @@ return {
 
 export function postTrailReview(trailReviews){
     // console.log(trailReviews)
-return {
+return
         type: POST_TRAIL_REVIEWS,
         payload: trailReviews
     }

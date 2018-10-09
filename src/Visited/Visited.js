@@ -20,9 +20,10 @@ class Visited extends Component {
 
     
     render() { 
+        const { visited } = this.props;
         return ( 
             <div>
-                visited
+                {visited}
             </div>
          );
     }

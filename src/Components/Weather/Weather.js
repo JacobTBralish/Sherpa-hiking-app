@@ -35,7 +35,7 @@ getDate = (date) => {
     }
     if (day.length < 2){
         day = '0' + day;	
-    } 
+    }
     return [year, month, day].join('');
 }
 
@@ -72,7 +72,6 @@ findWeatherInfoByDay = (arr, cb) => {
     let dates = [];
     for (let i=0; i<arr.length; i++){
       let dateString = moment(cb(arr[i].dt_txt)).format('MMMM Do YYYY')
-    //   console.log(dateString)
       if(dates.some(e => e.day === dateString)){
         dates[dates.findIndex(e => e.day === dateString)].hour.push({minTemp: Math.floor(arr[i].main.temp_min), 
           maxTemp: Math.floor(arr[i].main.temp_max), 

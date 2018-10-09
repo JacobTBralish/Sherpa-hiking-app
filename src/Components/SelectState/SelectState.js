@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { chooseState, getStates } from '../../Redux/reducer'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 import './SelectState.css';
+
+// const getStates = withData('')
 
 class SelectState extends Component {
 
@@ -57,3 +60,43 @@ const mapDispatchToProps = {
 }
  
 export default connect(mapStateToProps,mapDispatchToProps)(SelectState);
+
+function withData(url){
+    return function (WrappedComponent) {
+        return class extends Component{
+            state = {
+                isLoading:false,
+                data: null,
+                error: null
+            }
+            componentDidMount() {
+                this.setState({isLoading: true});
+                axios.get(url).then(response => {
+                    this.setState({data:response.data, isLoading:false});
+                }).catch(error => {
+                    console.log(error);
+                    this.setState({error})
+                });
+            }
+            
+            render(){
+                const { isLoading, data, error } = this.state;
+
+                return <div>
+                    {error
+                    ?
+                <div>There was an error. Please refresh or try again later.</div>
+                :
+                (isLoading || !data)
+                ?
+                <div>Loading...</div>
+                :
+                <WrappedComponent visited={data} />}
+                </div>
+
+                
+            }
+
+        }
+    }
+}
