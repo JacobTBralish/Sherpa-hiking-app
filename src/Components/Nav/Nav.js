@@ -39,6 +39,8 @@ componentDidMount(){
         axios.post('/api/logout').then(res => {
             console.log(res.data)
             this.props.logOut(this.props.user);
+        }).catch(error => {
+            console.log(error, 'There was an error logging out in Nav');
         })
     }
 

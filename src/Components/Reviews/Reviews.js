@@ -117,7 +117,7 @@ class Reviews extends Component {
                     <textarea id='reviewBody' className='reviewInput' onChange={this.handleChange}></textarea>
 
                         <div className='styledButtonAnimation'>
-                        <button className='styledButton'  onClick={(e) => {console.log(this.props), this.handlePost( chosenTrail[0].name, chosenTrail[0].imgSmallMed, title, reviewBody, rating, user.id, e )}}><i class="far fa-paper-plane"></i></button>
+                        <button className='styledButton'  onClick={(e) => {this.handlePost( chosenTrail[0].name, chosenTrail[0].imgSmallMed, title, reviewBody, rating, user.id, e )}}><i class="far fa-paper-plane"></i></button>
                     </div>
                     {/* {user && user.profileFinished ? */}
 

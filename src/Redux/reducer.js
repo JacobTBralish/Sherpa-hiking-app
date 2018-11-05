@@ -248,7 +248,8 @@ export function logIn(user){
 
 export function logOut(){
     return {
-        type: LOGGED_OUT
+        type: LOGGED_OUT,
+        payload: null
     }
 }
 
